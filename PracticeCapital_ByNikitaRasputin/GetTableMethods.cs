@@ -114,35 +114,10 @@ namespace PracticeCapital_ByNikitaRasputin
                     {
                         if (sheet.Cells[j, i].Value == null) sheet.Cells[j, i].Value = "";
                         dataObject[i - 1].data.Add(sheet.Cells[j, i].Text);
-                        
                     }
                 }
                 dataObject[i-1].name = sheet.Cells[newIndent, i].Text;
             }
-        }
-    }
-    public static class OtherTableMethods
-    {
-        public static List<int> ExcludedRows(ExcelWorksheet sheet, int column, int indents)
-        {
-            List<int> rows = new List<int>();
-            for (int i = indents + 1; i < sheet.Dimension.End.Row; i++)
-            {
-                if (sheet.Cells[i, column].Value == null) rows.Add(i);
-            }
-            return rows;
-        }
-        public static List<int> ExcludedRows(List<DataObject> dataObjects, int column)
-        {
-            List<int> rows = new List<int>();
-            for(int i = 0; i < dataObjects[0].data.Count; i++)
-            {
-                if (string.IsNullOrEmpty(dataObjects[column - 1].data[i])) 
-                {
-                    rows.Add(i);
-                }
-            }
-            return rows;
         }
     }
     public class DataObject
