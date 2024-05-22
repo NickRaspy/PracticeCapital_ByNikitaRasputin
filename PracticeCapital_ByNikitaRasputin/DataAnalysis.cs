@@ -332,5 +332,36 @@ namespace PracticeCapital_ByNikitaRasputin
             if (e.RowIndex >= compareValues.Count) compareValues.Add(compareValueTable[0, e.RowIndex].EditedFormattedValue.ToString());
             else compareValues[e.RowIndex] = compareValueTable[0, e.RowIndex].EditedFormattedValue.ToString();
         }
+
+        private void expRevDataTable_KeyDown(object sender, KeyEventArgs e)
+        {
+            DeleteRows(expRevDataTable, e);
+        }
+        private void profTaxDataTable_KeyDown(object sender, KeyEventArgs e)
+        {
+            DeleteRows(profTaxDataTable, e);
+        }
+        private void balanceDataTable_KeyDown(object sender, KeyEventArgs e)
+        {
+            DeleteRows(balanceDataTable, e, 3);
+        }
+        private void DeleteRows(DataGridView dataGridView, KeyEventArgs e, int columnsCount = 2)
+        {
+            if (dataGridView.Rows.Count == 1) return;
+            if (e.KeyCode == Keys.Delete && dataGridView.SelectedCells != null)
+            {
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    for(int i = 0; i < columnsCount; i++)
+                    {
+                        if (dataGridView.SelectedCells.Contains(row.Cells[i]) && row.Cells[i].Value != null)
+                        {
+                            dataGridView.Rows.Remove(row);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

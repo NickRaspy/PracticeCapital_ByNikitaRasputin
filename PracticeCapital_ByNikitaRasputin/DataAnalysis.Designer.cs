@@ -44,6 +44,9 @@
             this.massDataButton = new System.Windows.Forms.Button();
             this.liquidationButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.profTaxDataTable = new System.Windows.Forms.DataGridView();
+            this.dataGridViewComboBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewComboBoxColumn4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dzkzButton = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.kzCombo = new System.Windows.Forms.ComboBox();
@@ -68,6 +71,8 @@
             this.compareTaxButton = new System.Windows.Forms.Button();
             this.compareExpProfButton = new System.Windows.Forms.Button();
             this.expRevDataTable = new System.Windows.Forms.DataGridView();
+            this.expensesColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.revenueColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label11 = new System.Windows.Forms.Label();
@@ -82,17 +87,12 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.expensesColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.revenueColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.profTaxDataTable = new System.Windows.Forms.DataGridView();
-            this.dataGridViewComboBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewComboBoxColumn4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.compareValueTable)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.profTaxDataTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.balanceDataTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.expRevDataTable)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.profTaxDataTable)).BeginInit();
             this.SuspendLayout();
             // 
             // arbitrButton
@@ -265,6 +265,32 @@
             this.groupBox2.Size = new System.Drawing.Size(700, 527);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
+            // 
+            // profTaxDataTable
+            // 
+            this.profTaxDataTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.profTaxDataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.profTaxDataTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewComboBoxColumn3,
+            this.dataGridViewComboBoxColumn4});
+            this.profTaxDataTable.Location = new System.Drawing.Point(354, 77);
+            this.profTaxDataTable.Name = "profTaxDataTable";
+            this.profTaxDataTable.RowHeadersVisible = false;
+            this.profTaxDataTable.Size = new System.Drawing.Size(340, 147);
+            this.profTaxDataTable.TabIndex = 21;
+            this.profTaxDataTable.KeyDown += new System.Windows.Forms.KeyEventHandler(this.profTaxDataTable_KeyDown);
+            // 
+            // dataGridViewComboBoxColumn3
+            // 
+            this.dataGridViewComboBoxColumn3.HeaderText = "Прибыль за определенный год";
+            this.dataGridViewComboBoxColumn3.Name = "dataGridViewComboBoxColumn3";
+            this.dataGridViewComboBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewComboBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // dataGridViewComboBoxColumn4
+            // 
+            this.dataGridViewComboBoxColumn4.HeaderText = "Налог на прибыль за определенный год";
+            this.dataGridViewComboBoxColumn4.Name = "dataGridViewComboBoxColumn4";
             // 
             // dzkzButton
             // 
@@ -440,6 +466,7 @@
             this.balanceDataTable.RowHeadersVisible = false;
             this.balanceDataTable.Size = new System.Drawing.Size(410, 147);
             this.balanceDataTable.TabIndex = 8;
+            this.balanceDataTable.KeyDown += new System.Windows.Forms.KeyEventHandler(this.balanceDataTable_KeyDown);
             // 
             // yearColumn
             // 
@@ -465,7 +492,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label6.Location = new System.Drawing.Point(210, 264);
+            this.label6.Location = new System.Drawing.Point(250, 264);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(200, 20);
             this.label6.TabIndex = 7;
@@ -503,6 +530,19 @@
             this.expRevDataTable.RowHeadersVisible = false;
             this.expRevDataTable.Size = new System.Drawing.Size(340, 147);
             this.expRevDataTable.TabIndex = 5;
+            this.expRevDataTable.KeyDown += new System.Windows.Forms.KeyEventHandler(this.expRevDataTable_KeyDown);
+            // 
+            // expensesColumn
+            // 
+            this.expensesColumn.HeaderText = "Расходы за определенный год";
+            this.expensesColumn.Name = "expensesColumn";
+            this.expensesColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.expensesColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // revenueColumn
+            // 
+            this.revenueColumn.HeaderText = "Выручка за определенный год";
+            this.revenueColumn.Name = "revenueColumn";
             // 
             // label4
             // 
@@ -629,43 +669,6 @@
             this.label15.TabIndex = 24;
             this.label15.Text = "Отриц. (крас.)";
             // 
-            // expensesColumn
-            // 
-            this.expensesColumn.HeaderText = "Расходы за определенный год";
-            this.expensesColumn.Name = "expensesColumn";
-            this.expensesColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.expensesColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // revenueColumn
-            // 
-            this.revenueColumn.HeaderText = "Выручка за определенный год";
-            this.revenueColumn.Name = "revenueColumn";
-            // 
-            // profTaxDataTable
-            // 
-            this.profTaxDataTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.profTaxDataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.profTaxDataTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewComboBoxColumn3,
-            this.dataGridViewComboBoxColumn4});
-            this.profTaxDataTable.Location = new System.Drawing.Point(354, 77);
-            this.profTaxDataTable.Name = "profTaxDataTable";
-            this.profTaxDataTable.RowHeadersVisible = false;
-            this.profTaxDataTable.Size = new System.Drawing.Size(340, 147);
-            this.profTaxDataTable.TabIndex = 21;
-            // 
-            // dataGridViewComboBoxColumn3
-            // 
-            this.dataGridViewComboBoxColumn3.HeaderText = "Прибыль за определенный год";
-            this.dataGridViewComboBoxColumn3.Name = "dataGridViewComboBoxColumn3";
-            this.dataGridViewComboBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewComboBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // dataGridViewComboBoxColumn4
-            // 
-            this.dataGridViewComboBoxColumn4.HeaderText = "Налог на прибыль за определенный год";
-            this.dataGridViewComboBoxColumn4.Name = "dataGridViewComboBoxColumn4";
-            // 
             // DataAnalysis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -696,9 +699,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.compareValueTable)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.profTaxDataTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.balanceDataTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.expRevDataTable)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.profTaxDataTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

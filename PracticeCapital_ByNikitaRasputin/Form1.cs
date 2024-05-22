@@ -93,5 +93,10 @@ namespace PracticeCapital_ByNikitaRasputin
                 dataGridView1[columnBox.SelectedIndex - 1, i].Style.BackColor = Color.White;
             }
         }
+
+        private void dataGridView1_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
+        {
+            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+        }
     }
 }

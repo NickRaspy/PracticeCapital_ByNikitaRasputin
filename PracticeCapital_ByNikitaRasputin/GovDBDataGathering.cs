@@ -13,6 +13,7 @@ using System.Windows.Threading;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using CheckBox = System.Windows.Forms.CheckBox;
 using System.Threading;
+using System.Windows.Markup;
 
 namespace PracticeCapital_ByNikitaRasputin
 {
@@ -164,10 +165,9 @@ namespace PracticeCapital_ByNikitaRasputin
             if (!dataTable.Columns.Contains("Численность сотрудников 2 года ранее")) dataTable.Columns.Add("Численность сотрудников 2 года ранее", typeof(double));
             if (!dataTable.Columns.Contains("Численность сотрудников 3 года ранее")) dataTable.Columns.Add("Численность сотрудников 3 года ранее", typeof(double));
             if (!dataTable.Columns.Contains("Массовый руководитель")) dataTable.Columns.Add("Массовый руководитель", typeof(string));
-            if (!dataTable.Columns.Contains("Массовый учредитель")) dataTable.Columns.Add("Массовый руководитель", typeof(string));
-/*            if (!dataTable.Columns.Contains("Массовый адрес")) dataTable.Columns.Add("Массовый руководитель", typeof(string));*/
+            if (!dataTable.Columns.Contains("Массовый учредитель")) dataTable.Columns.Add("Массовый учредитель", typeof(string));
+            /*            if (!dataTable.Columns.Contains("Массовый адрес")) dataTable.Columns.Add("Массовый адрес", typeof(string));*/
             if (!dataTable.Columns.Contains("Система налогообложения")) dataTable.Columns.Add("Система налогообложения", typeof(string));
-            if (!dataTable.Columns.Contains("Страховые взносы")) dataTable.Columns.Add("Страховые взносы", typeof(double));
             string html = "";
             int time = 0;
             HtmlDocument doc = new HtmlDocument();
@@ -187,57 +187,191 @@ namespace PracticeCapital_ByNikitaRasputin
                 time = 0; ;
                 var script = "";
                 bool isChecked = false;
-                try
+                await browser.LoadUrlAsync($"https://pb.nalog.ru/search.html#queryAll={inns[i]}");
+                while (true)
                 {
-                    await browser.LoadUrlAsync($"https://pb.nalog.ru/search.html#queryAll={inns[i]}");
-                    while (true)
-                    {
-                        html = await browser.GetSourceAsync();
-                        doc.LoadHtml(html);
-                        if(!isChecked) CheckCaptcha(isChecked);
-                        HtmlNode node = doc.DocumentNode.SelectSingleNode("//div[@class='pb-card pb-card--clickable']");
-                        if (node != null) break;
-                        time = Timer(time, elementsState);
-                        if ((time >= 1000 && !isChecked) || token.IsCancellationRequested) return;
-                        await Task.Delay(1);
-                    }
-                    time = 0;
-                    await Task.Delay(10000);
-                    if (token.IsCancellationRequested) return;
-                    browser.Enabled = false;
-                    script = $@"var elements = document.getElementsByClassName('pb-card pb-card--clickable');
-                                elements[0].click();";
-                    browser.ExecuteScriptAsync(script);
-                    while (true)
-                    {
-                        html = await browser.GetSourceAsync();
-                        doc.LoadHtml(html);
-                        if (!isChecked) CheckCaptcha(isChecked);
-                        if (doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRUL_INN\"]") != null || doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRIP_INN\"]") != null) break;
-                        time = Timer(time, elementsState);
-                        if ((time >= 1000 && !isChecked) || token.IsCancellationRequested) return;
-                        await Task.Delay(1);
-                    }
-                    time = 0;
-                    browser.Enabled = false;
+                    html = await browser.GetSourceAsync();
                     doc.LoadHtml(html);
-                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Адрес"].ToString())) dataTable.Rows[i]["Адрес"] = doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRUL_ADRES\"]") != null
-                            ? doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRUL_ADRES\"]").InnerText : "отсутствует";
-                    if (string.IsNullOrEmpty(dataTable.Rows[i]["ОКВЭД"].ToString())) dataTable.Rows[i]["ОКВЭД"] = doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRUL_OKVED\"]") != null 
-                            ? doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRUL_OKVED\"]").InnerText : doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRIP_OKVED\"]").InnerText;
-                    HtmlNodeCollection companyFields = doc.DocumentNode.SelectNodes("//div[@class=\"pb-company-field\"]");
-                    for (int j = 0; j < companyFields.Count; j++)
+                    if (!isChecked) CheckCaptcha(isChecked);
+                    HtmlNode node = doc.DocumentNode.SelectSingleNode("//div[@class='pb-card pb-card--clickable']");
+                    if (node != null) break;
+                    time = Timer(time, elementsState);
+                    if ((time >= 1000 && !isChecked) || token.IsCancellationRequested) return;
+                    await Task.Delay(1);
+                }
+                time = 0;
+                await Task.Delay(10000);
+                if (token.IsCancellationRequested) return;
+                browser.Enabled = false;
+                script = $@"var elements = document.getElementsByClassName('pb-card pb-card--clickable');
+                                elements[0].click();";
+                browser.ExecuteScriptAsync(script);
+                while (true)
+                {
+                    html = await browser.GetSourceAsync();
+                    doc.LoadHtml(html);
+                    if (!isChecked) CheckCaptcha(isChecked);
+                    if (doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRUL_INN\"]") != null || doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRIP_INN\"]") != null) break;
+                    time = Timer(time, elementsState);
+                    if ((time >= 1000 && !isChecked) || token.IsCancellationRequested) return;
+                    await Task.Delay(1);
+                }
+                time = 0;
+                browser.Enabled = false;
+                doc.LoadHtml(html);
+                if (string.IsNullOrEmpty(dataTable.Rows[i]["Адрес"].ToString())) dataTable.Rows[i]["Адрес"] = doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRUL_ADRES\"]") != null
+                        ? doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRUL_ADRES\"]").InnerText : "отсутствует";
+                if (string.IsNullOrEmpty(dataTable.Rows[i]["ОКВЭД"].ToString())) dataTable.Rows[i]["ОКВЭД"] = doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRUL_OKVED\"]") != null
+                        ? doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRUL_OKVED\"]").InnerText : doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"EGRIP_OKVED\"]").InnerText;
+                if (string.IsNullOrEmpty(dataTable.Rows[i]["Система налогообложения"].ToString()) && doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"TAXMODE\"]") != null)
+                {
+                    if (doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"TAXMODE\"]").ChildNodes.Count > 1)
+                        dataTable.Rows[i]["Система налогообложения"] = doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"TAXMODE\"]").ChildNodes[1].InnerText;
+                    else dataTable.Rows[i]["Система налогообложения"] = doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"TAXMODE\"]").InnerText;
+                }
+                else if (string.IsNullOrEmpty(dataTable.Rows[i]["Система налогообложения"].ToString()) && doc.DocumentNode.SelectSingleNode("//a[@data-appeal-kind=\"TAXMODE\"]") == null)
+                {
+                    dataTable.Rows[i]["Система налогообложения"] = "Неизвестно";
+                }
+                HtmlNode supervisor = doc.DocumentNode.SelectSingleNode("//div[@id='rupr']");
+                if (string.IsNullOrEmpty(dataTable.Rows[i]["Массовый руководитель"].ToString()))
+                {
+                    bool found = false;
+                    string super = "Есть. ";
+                    if(supervisor != null)
+                        for (int j = 2; j < supervisor.ChildNodes[1].ChildNodes.Count; j++)
+                        {
+                            if (supervisor.ChildNodes[1].ChildNodes[j].ChildNodes.Count == 0) continue;
+                            else
+                            {
+                                if (Convert.ToInt32(supervisor.ChildNodes[1].ChildNodes[j].ChildNodes[7].ChildNodes[1].ChildNodes[3].InnerText) >= 10)
+                                {
+                                    found = true;
+                                    super += supervisor.ChildNodes[1].ChildNodes[j].ChildNodes[1].ChildNodes[1].ChildNodes[1].InnerText + ", " + supervisor.ChildNodes[1].ChildNodes[j].ChildNodes[7].ChildNodes[1].ChildNodes[3].InnerText + "; ";
+                                }
+                            }
+                        }
+                    if (!found) super = "Нет";
+                    dataTable.Rows[i]["Массовый руководитель"] = super;
+                }
+                HtmlNode founder = doc.DocumentNode.SelectSingleNode("//div[@id='ruchr']");
+                if (string.IsNullOrEmpty(dataTable.Rows[i]["Массовый учредитель"].ToString()))
+                {
+                    bool found = false;
+                    string founders = "Есть. ";
+                    if(founder != null)
+                        for (int j = 2; j < founder.ChildNodes[1].ChildNodes.Count; j++)
+                        {
+                            if (founder.ChildNodes[1].ChildNodes[j].ChildNodes.Count == 0) continue;
+                            else
+                            {
+                                if (Convert.ToInt32(founder.ChildNodes[1].ChildNodes[j].ChildNodes[5].ChildNodes[1].ChildNodes[3].InnerText) >= 10)
+                                {
+                                    found = true;
+                                    founders += founder.ChildNodes[1].ChildNodes[j].ChildNodes[1].ChildNodes[1].ChildNodes[1].InnerText + ", " + founder.ChildNodes[1].ChildNodes[j].ChildNodes[5].ChildNodes[1].ChildNodes[3].InnerText + "; ";
+                                }
+                            }
+                        }
+                    if (!found) founders = "Нет";
+                    dataTable.Rows[i]["Массовый учредитель"] = founders;
+                }
+                if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата регистрации"].ToString()))
+                {
+                    HtmlNode companyFields = doc.DocumentNode.SelectSingleNode("//div[@id=\"pnlCompanyLeftCol\"]");
+                    foreach (HtmlNode node in companyFields.ChildNodes)
+                    {
+                        if (node.ChildNodes[1].ChildNodes.Count <= 1) continue;
+                        if (node.ChildNodes[1].ChildNodes[1].InnerText == "Дата регистрации:" || node.ChildNodes[1].ChildNodes[1].InnerText == "Дата присвоения ОГРНИП:")
+                        {
+                            dataTable.Rows[i]["Дата регистрации"] = node.ChildNodes[1].ChildNodes[3].InnerText;
+                        }
+                    }
+                }
+                if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата ликвидации"].ToString()) && string.IsNullOrEmpty(dataTable.Rows[i]["Причина ликвидации"].ToString()))
+                {
+                    if (doc.DocumentNode.SelectSingleNode("//span[@class='pb-subject-status pb-subject-status--active']") != null
+                        || doc.DocumentNode.SelectSingleNode("//span[@class='pb-subject-status pb-subject-status--inprogress']") != null)
+                    {
+                        dataTable.Rows[i]["Дата ликвидации"] = "Нет"; dataTable.Rows[i]["Причина ликвидации"] = "Нет";
+                    }
+                    else if (doc.DocumentNode.SelectSingleNode("//span[@class='pb-subject-status pb-subject-status--closed']") != null)
+                    {
+                        foreach (HtmlNode node in doc.DocumentNode.SelectNodes("//div[@class='pb-company-block__row pb-company-multicolumn-item']"))
+                        {
+                            if (token.IsCancellationRequested) return;
+                            if (node.ChildNodes[1].ChildNodes[1].InnerText == "Состояние согласно ЕГРЮЛ:" || node.ChildNodes[1].ChildNodes[1].InnerText == "Состояние согласно ЕГРИП:")
+                            {
+                                string reason = node.ChildNodes[1].ChildNodes[3].InnerText.Replace("\n", "");
+                                reason = reason.Trim();
+                                dataTable.Rows[i]["Причина ликвидации"] = reason;
+                            }
+                            else if (node.ChildNodes[1].ChildNodes[1].InnerText == "Дата состояния:")
+                            {
+                                dataTable.Rows[i]["Дата ликвидации"] = node.ChildNodes[1].ChildNodes[3].InnerText;
+                            }
+                        }
+                    }
+                }
+                script = @"var q = document.querySelectorAll('[data-title=""Среднесписочная численность работников организации""]');
+                               q[0].click();";
+                browser.ExecuteScriptAsync(script);
+                await Task.Delay(10);
+                html = await browser.GetSourceAsync();
+                doc.LoadHtml(html);
+                HtmlNode staff = doc.DocumentNode.SelectSingleNode("//tbody[@id='modalCompanyTbody']");
+                List<string> checkedYears = new List<string>();
+                if(staff != null)
+                    for (int j = 0; j < 3; j++)
                     {
                         if (token.IsCancellationRequested) return;
-                        if (companyFields[j].FirstChild.InnerText == "Дата регистрации:" || companyFields[j].FirstChild.InnerText == "Дата присвоения ОГРНИП:")
-                            if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата регистрации"].ToString())) dataTable.Rows[i]["Дата регистрации"] = companyFields[j].LastChild.InnerText;
+                        if (j >= staff.ChildNodes.Count) break;
+                        if (staff.ChildNodes[j].LastChild.InnerText == "Сведения отсутствуют") continue;
+                        if (staff.ChildNodes[j].FirstChild.InnerText == (DateTime.Now.Year - 1).ToString())
+                        {
+                            dataTable.Rows[i]["Численность сотрудников в прошлом году"] = Convert.ToDouble(staff.ChildNodes[j].LastChild.InnerText);
+                            checkedYears.Add(staff.ChildNodes[j].FirstChild.InnerText);
+                        }
+                        else if (!checkedYears.Contains((DateTime.Now.Year - 1).ToString()))
+                        {
+                            dataTable.Rows[i]["Численность сотрудников в прошлом году"] = 0;
+                        }
+
+                        if (staff.ChildNodes[j].FirstChild.InnerText == (DateTime.Now.Year - 2).ToString())
+                        {
+                            dataTable.Rows[i]["Численность сотрудников 2 года ранее"] = Convert.ToDouble(staff.ChildNodes[j].LastChild.InnerText);
+                            checkedYears.Add(staff.ChildNodes[j].FirstChild.InnerText);
+                        }
+                        else if (!checkedYears.Contains((DateTime.Now.Year - 2).ToString()))
+                        {
+                            dataTable.Rows[i]["Численность сотрудников 2 года ранее"] = 0;
+                        }
+
+                        if (staff.ChildNodes[j].FirstChild.InnerText == (DateTime.Now.Year - 3).ToString())
+                        {
+                            dataTable.Rows[i]["Численность сотрудников 3 года ранее"] = Convert.ToDouble(staff.ChildNodes[j].LastChild.InnerText);
+                            checkedYears.Add(staff.ChildNodes[j].FirstChild.InnerText);
+                        }
+                        else if (!checkedYears.Contains((DateTime.Now.Year - 3).ToString()))
+                        {
+                            dataTable.Rows[i]["Численность сотрудников 3 года ранее"] = 0;
+                        }
                     }
+                else
+                {
+                    dataTable.Rows[i]["Численность сотрудников в прошлом году"] = 0;
+                    dataTable.Rows[i]["Численность сотрудников 2 года ранее"] = 0;
+                    dataTable.Rows[i]["Численность сотрудников 3 года ранее"] = 0;
+                }
+                try
+                {
+ 
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error: {ex.Message}");
                 }
-                await Task.Delay(10000);
+                if (i == inns.Count - 1) break;
+                else await Task.Delay(10000);
             }
             MessageBox.Show("Поиск завершен", "Конец операции", MessageBoxButtons.OK, MessageBoxIcon.Information);
             elementsState.Checked = true;
