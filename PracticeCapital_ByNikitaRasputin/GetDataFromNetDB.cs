@@ -186,6 +186,10 @@ namespace PracticeCapital_ByNikitaRasputin
                         browserCheck.Checked = false;
                         GovDBDataGathering.ClearBusiness(inns, dataTable, chromiumWebBrowser1, browserCheck, token);
                         break;
+                    case 6:
+                        browserCheck.Checked = false;
+                        GovDBDataGathering.ForFairBussiness(inns, dataTable, chromiumWebBrowser1, browserCheck, token);
+                        break;
                 }
             }
             catch

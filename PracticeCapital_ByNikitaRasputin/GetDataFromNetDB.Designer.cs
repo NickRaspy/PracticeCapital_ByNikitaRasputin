@@ -113,7 +113,8 @@
             "List-Org",
             "ПЕРЕЧЕНЬ ТЕРРОРИСТОВ И ЭКСТРЕМИСТОВ",
             "Арбитраж",
-            "Прозрачный бизнес"});
+            "Прозрачный бизнес",
+            "ЗАЧЕСТНЫЙБИЗНЕС"});
             this.GovDBBox.Location = new System.Drawing.Point(287, 54);
             this.GovDBBox.Name = "GovDBBox";
             this.GovDBBox.Size = new System.Drawing.Size(121, 21);
