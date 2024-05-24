@@ -98,5 +98,13 @@ namespace PracticeCapital_ByNikitaRasputin
         {
             e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
+
+        private void addColumnsButton_Click(object sender, EventArgs e)
+        {
+            AddRemoveColumns addRemoveColumns = new AddRemoveColumns();
+            addRemoveColumns.form1 = this;
+            addRemoveColumns.Show();
+            this.Enabled = false;
+        }
     }
 }

@@ -159,6 +159,7 @@ namespace PracticeCapital_ByNikitaRasputin
             if (!dataTable.Columns.Contains("Адрес")) dataTable.Columns.Add("Адрес", typeof(string));
             if (!dataTable.Columns.Contains("ОКВЭД")) dataTable.Columns.Add("ОКВЭД", typeof(string));
             if (!dataTable.Columns.Contains("Дата регистрации")) dataTable.Columns.Add("Дата регистрации", typeof(string));
+            if (!dataTable.Columns.Contains("Статус компании")) dataTable.Columns.Add("Статус компании", typeof(string));
             if (!dataTable.Columns.Contains("Дата ликвидации")) dataTable.Columns.Add("Дата ликвидации", typeof(string));
             if (!dataTable.Columns.Contains("Причина ликвидации")) dataTable.Columns.Add("Причина ликвидации", typeof(string));
             if (!dataTable.Columns.Contains("Численность сотрудников в прошлом году")) dataTable.Columns.Add("Численность сотрудников в прошлом году", typeof(double));
@@ -291,13 +292,19 @@ namespace PracticeCapital_ByNikitaRasputin
                     }
                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата ликвидации"].ToString()) && string.IsNullOrEmpty(dataTable.Rows[i]["Причина ликвидации"].ToString()))
                     {
-                        if (doc.DocumentNode.SelectSingleNode("//span[@class='pb-subject-status pb-subject-status--active']") != null
-                            || doc.DocumentNode.SelectSingleNode("//span[@class='pb-subject-status pb-subject-status--inprogress']") != null)
+                        if (doc.DocumentNode.SelectSingleNode("//span[@class='pb-subject-status pb-subject-status--active']") != null)
                         {
+                            dataTable.Rows[i]["Статус компании"] = "Действующее";
+                            dataTable.Rows[i]["Дата ликвидации"] = "Нет"; dataTable.Rows[i]["Причина ликвидации"] = "Нет";
+                        }
+                        else if (doc.DocumentNode.SelectSingleNode("//span[@class='pb-subject-status pb-subject-status--inprogress']") != null)
+                        {
+                            dataTable.Rows[i]["Статус компании"] = "В стадии реорганизации";
                             dataTable.Rows[i]["Дата ликвидации"] = "Нет"; dataTable.Rows[i]["Причина ликвидации"] = "Нет";
                         }
                         else if (doc.DocumentNode.SelectSingleNode("//span[@class='pb-subject-status pb-subject-status--closed']") != null)
                         {
+                            dataTable.Rows[i]["Статус компании"] = "Ликвидирован";
                             foreach (HtmlNode node in doc.DocumentNode.SelectNodes("//div[@class='pb-company-block__row pb-company-multicolumn-item']"))
                             {
                                 if (token.IsCancellationRequested) return;
@@ -504,16 +511,23 @@ namespace PracticeCapital_ByNikitaRasputin
                         case "Статус:":
                             if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) 
                             {
-                                if (childNode.ChildNodes[2].InnerText == "Действующее" || childNode.ChildNodes[2].InnerText == "Юридическое лицо находится в процессе реорганизации в форме выделения") 
+                                if (childNode.ChildNodes[2].InnerText == "Действующее") 
                                 {
-                                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) dataTable.Rows[i]["Статус компании"] = childNode.ChildNodes[2].InnerText;
+                                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) dataTable.Rows[i]["Статус компании"] = "Действующее";
+                                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Причина ликвидации"].ToString())) dataTable.Rows[i]["Причина ликвидации"] = "Нет";
+                                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата ликвидации"].ToString())) dataTable.Rows[i]["Дата ликвидации"] = "Нет";
+                                }
+                                else if (childNode.ChildNodes[2].InnerText == "Юридическое лицо находится в процессе реорганизации в форме выделения")
+                                {
+                                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) dataTable.Rows[i]["Статус компании"] = "В стадии реорганизации";
                                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Причина ликвидации"].ToString())) dataTable.Rows[i]["Причина ликвидации"] = "Нет";
                                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата ликвидации"].ToString())) dataTable.Rows[i]["Дата ликвидации"] = "Нет";
                                 }
                                 else
                                 {
-                                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) dataTable.Rows[i]["Статус компании"] = "Деятельность прекращена";
+                                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) dataTable.Rows[i]["Статус компании"] = "Ликвидирован";
                                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Причина ликвидации"].ToString())) dataTable.Rows[i]["Причина ликвидации"] = childNode.ChildNodes[2].InnerText;
+                                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата ликвидации"].ToString())) dataTable.Rows[i]["Дата ликвидации"] = node.SelectSingleNode("//ul").ChildNodes[2].ChildNodes[1].InnerText.Replace("\n", "");
                                 }
                             } 
                             break;
@@ -652,7 +666,8 @@ namespace PracticeCapital_ByNikitaRasputin
                 if (isIE) continue;
                 if (doc.DocumentNode.SelectSingleNode("//td[@class='status_5']") != null)
                 {
-                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) dataTable.Rows[i]["Статус компании"] = doc.DocumentNode.SelectSingleNode("//td[@class='status_5']").InnerText;
+                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) dataTable.Rows[i]["Статус компании"] 
+                            = doc.DocumentNode.SelectSingleNode("//td[@class='status_5']").InnerText == "Действующее" ? "Действующее" : "В стадии реорганизации";
                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата ликвидации"].ToString())) dataTable.Rows[i]["Дата ликвидации"] = "Нет";
                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Причина ликвидации"].ToString())) dataTable.Rows[i]["Причина ликвидации"] = "Нет";
                 }
@@ -660,7 +675,7 @@ namespace PracticeCapital_ByNikitaRasputin
                 {
                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата ликвидации"].ToString())) dataTable.Rows[i]["Дата ликвидации"] = doc.DocumentNode.SelectSingleNode("//div[@class='warn_red']").InnerText;
                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Причина ликвидации"].ToString())) dataTable.Rows[i]["Причина ликвидации"] = doc.DocumentNode.SelectSingleNode("//td[@class='status_0']").InnerText;
-                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) dataTable.Rows[i]["Статус компании"] = "Ликвидирована";
+                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) dataTable.Rows[i]["Статус компании"] = "Ликвидирован";
                 }
                 nodes = doc.DocumentNode.SelectNodes("//table[@class='table table-sm']")[0].ChildNodes[1].ChildNodes;
                 foreach (HtmlNode node in nodes)
@@ -764,6 +779,7 @@ namespace PracticeCapital_ByNikitaRasputin
             if (!dataTable.Columns.Contains("Адрес")) dataTable.Columns.Add("Адрес", typeof(string));
             if (!dataTable.Columns.Contains("ОКВЭД")) dataTable.Columns.Add("ОКВЭД", typeof(string));
             if (!dataTable.Columns.Contains("Дата регистрации")) dataTable.Columns.Add("Дата регистрации", typeof(string));
+            if (!dataTable.Columns.Contains("Статус компании")) dataTable.Columns.Add("Статус компании", typeof(string));
             if (!dataTable.Columns.Contains("Дата ликвидации")) dataTable.Columns.Add("Дата ликвидации", typeof(string));
             if (!dataTable.Columns.Contains("Причина ликвидации")) dataTable.Columns.Add("Причина ликвидации", typeof(string));
             if (!dataTable.Columns.Contains("Численность сотрудников в прошлом году")) dataTable.Columns.Add("Численность сотрудников в прошлом году", typeof(double));
@@ -888,10 +904,13 @@ namespace PracticeCapital_ByNikitaRasputin
                 string liquidationReason = "Нет";
                 if (doc.DocumentNode.SelectSingleNode("//span[@class='badge bg-badge-soft-danger c-danger']") != null)
                 {
+                    dataTable.Rows[i]["Статус компании"] = "Ликвидирован";
                     liquidationReason = doc.DocumentNode.SelectSingleNode("//span[@class='badge bg-badge-soft-danger c-danger']").ParentNode.ChildNodes[5].InnerText;
                     dataTable.Rows[i]["Дата ликвидации"] = doc.DocumentNode.SelectNodes("//p[@class='m-b-0 no-indent sub-title-content']")[0].InnerText;
                 }
-                if(liquidationReason == "Нет")
+                else if (doc.DocumentNode.SelectSingleNode("//span[@class='badge bg-badge-soft-warning c-warning']") != null) dataTable.Rows[i]["Статус компании"] = "В стадии реорганизации";
+                else dataTable.Rows[i]["Статус компании"] = "Действующее";
+                if (liquidationReason == "Нет")
                 {
                     dataTable.Rows[i]["Дата ликвидации"] = "Нет";
                     int good = Convert.ToInt32(doc.DocumentNode.SelectSingleNode("//span[@class='success-risk icon-xs m-r-4']").ParentNode.ChildNodes[3].InnerText);

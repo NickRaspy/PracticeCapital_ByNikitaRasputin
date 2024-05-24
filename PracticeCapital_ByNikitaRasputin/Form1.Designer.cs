@@ -36,6 +36,7 @@
             this.analysisButton = new System.Windows.Forms.Button();
             this.columnClearButton = new System.Windows.Forms.Button();
             this.columnBox = new System.Windows.Forms.ComboBox();
+            this.addColumnsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,9 +62,9 @@
             // secondaryTableButton
             // 
             this.secondaryTableButton.Enabled = false;
-            this.secondaryTableButton.Location = new System.Drawing.Point(624, 71);
+            this.secondaryTableButton.Location = new System.Drawing.Point(624, 125);
             this.secondaryTableButton.Name = "secondaryTableButton";
-            this.secondaryTableButton.Size = new System.Drawing.Size(132, 53);
+            this.secondaryTableButton.Size = new System.Drawing.Size(132, 48);
             this.secondaryTableButton.TabIndex = 2;
             this.secondaryTableButton.Text = "Добавить данные из внешей таблицы";
             this.secondaryTableButton.UseVisualStyleBackColor = true;
@@ -72,7 +73,7 @@
             // webDataButton
             // 
             this.webDataButton.Enabled = false;
-            this.webDataButton.Location = new System.Drawing.Point(624, 130);
+            this.webDataButton.Location = new System.Drawing.Point(624, 179);
             this.webDataButton.Name = "webDataButton";
             this.webDataButton.Size = new System.Drawing.Size(132, 48);
             this.webDataButton.TabIndex = 3;
@@ -94,7 +95,7 @@
             // analysisButton
             // 
             this.analysisButton.Enabled = false;
-            this.analysisButton.Location = new System.Drawing.Point(624, 301);
+            this.analysisButton.Location = new System.Drawing.Point(624, 351);
             this.analysisButton.Name = "analysisButton";
             this.analysisButton.Size = new System.Drawing.Size(132, 48);
             this.analysisButton.TabIndex = 5;
@@ -105,7 +106,7 @@
             // columnClearButton
             // 
             this.columnClearButton.Enabled = false;
-            this.columnClearButton.Location = new System.Drawing.Point(624, 259);
+            this.columnClearButton.Location = new System.Drawing.Point(624, 309);
             this.columnClearButton.Name = "columnClearButton";
             this.columnClearButton.Size = new System.Drawing.Size(132, 36);
             this.columnClearButton.TabIndex = 6;
@@ -116,16 +117,27 @@
             // columnBox
             // 
             this.columnBox.FormattingEnabled = true;
-            this.columnBox.Location = new System.Drawing.Point(624, 232);
+            this.columnBox.Location = new System.Drawing.Point(624, 282);
             this.columnBox.Name = "columnBox";
             this.columnBox.Size = new System.Drawing.Size(132, 21);
             this.columnBox.TabIndex = 7;
+            // 
+            // addColumnsButton
+            // 
+            this.addColumnsButton.Location = new System.Drawing.Point(624, 71);
+            this.addColumnsButton.Name = "addColumnsButton";
+            this.addColumnsButton.Size = new System.Drawing.Size(132, 48);
+            this.addColumnsButton.TabIndex = 8;
+            this.addColumnsButton.Text = "Добавить/удалить столбцы данных";
+            this.addColumnsButton.UseVisualStyleBackColor = true;
+            this.addColumnsButton.Click += new System.EventHandler(this.addColumnsButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(768, 522);
+            this.Controls.Add(this.addColumnsButton);
             this.Controls.Add(this.columnBox);
             this.Controls.Add(this.columnClearButton);
             this.Controls.Add(this.analysisButton);
@@ -153,6 +165,7 @@
         public System.Windows.Forms.Button analysisButton;
         public System.Windows.Forms.Button columnClearButton;
         private System.Windows.Forms.ComboBox columnBox;
+        public System.Windows.Forms.Button addColumnsButton;
     }
 }
 
