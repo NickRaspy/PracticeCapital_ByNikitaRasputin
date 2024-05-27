@@ -21,7 +21,7 @@ namespace PracticeCapital_ByNikitaRasputin
     {
         private List<string> columns = new List<string>();
         public string testString;
-        public DataTable dataTable;
+        public DataTable dataTable = new DataTable();
         public Form1()
         {
             InitializeComponent();
@@ -29,6 +29,7 @@ namespace PracticeCapital_ByNikitaRasputin
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            dataGridView1.DataSource = dataTable;
             columnBox.Items.Add("нет");
             columnBox.SelectedIndex = 0;
         }
@@ -96,7 +97,7 @@ namespace PracticeCapital_ByNikitaRasputin
 
         private void dataGridView1_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
         {
-            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            /*e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;*/
         }
 
         private void addColumnsButton_Click(object sender, EventArgs e)

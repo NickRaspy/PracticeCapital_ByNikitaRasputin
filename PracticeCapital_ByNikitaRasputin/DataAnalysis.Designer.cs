@@ -37,7 +37,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.compareValueTable = new System.Windows.Forms.DataGridView();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.staffsButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.terrButton = new System.Windows.Forms.Button();
@@ -87,6 +86,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.compareValueTable)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -167,7 +168,8 @@
             this.compareValueTable.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.compareValueTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.compareValueTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.name});
+            this.name,
+            this.typeColumn});
             this.compareValueTable.EnableHeadersVisualStyles = false;
             this.compareValueTable.Location = new System.Drawing.Point(17, 129);
             this.compareValueTable.Name = "compareValueTable";
@@ -175,13 +177,8 @@
             this.compareValueTable.Size = new System.Drawing.Size(131, 67);
             this.compareValueTable.TabIndex = 21;
             this.compareValueTable.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.compareValueTable_CellEndEdit);
+            this.compareValueTable.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.compareValueTable_RowsAdded);
             this.compareValueTable.KeyDown += new System.Windows.Forms.KeyEventHandler(this.compareValueTable_KeyDown);
-            // 
-            // name
-            // 
-            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.name.HeaderText = "Значение";
-            this.name.Name = "name";
             // 
             // staffsButton
             // 
@@ -230,7 +227,7 @@
             this.liquidationButton.Name = "liquidationButton";
             this.liquidationButton.Size = new System.Drawing.Size(131, 34);
             this.liquidationButton.TabIndex = 4;
-            this.liquidationButton.Text = "Ликвидация компании";
+            this.liquidationButton.Text = "Статус компании";
             this.liquidationButton.UseVisualStyleBackColor = true;
             this.liquidationButton.Click += new System.EventHandler(this.liquidationButton_Click);
             // 
@@ -669,6 +666,21 @@
             this.label15.TabIndex = 24;
             this.label15.Text = "Отриц. (крас.)";
             // 
+            // name
+            // 
+            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.name.FillWeight = 150F;
+            this.name.HeaderText = "Значение";
+            this.name.Name = "name";
+            // 
+            // typeColumn
+            // 
+            this.typeColumn.HeaderText = "Тип";
+            this.typeColumn.Items.AddRange(new object[] {
+            "Положительный",
+            "Нейтральный"});
+            this.typeColumn.Name = "typeColumn";
+            // 
             // DataAnalysis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -760,11 +772,12 @@
         private System.Windows.Forms.ComboBox dzCombo;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.DataGridView compareValueTable;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridView profTaxDataTable;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn3;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn4;
         private System.Windows.Forms.DataGridViewComboBoxColumn expensesColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn revenueColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewComboBoxColumn typeColumn;
     }
 }

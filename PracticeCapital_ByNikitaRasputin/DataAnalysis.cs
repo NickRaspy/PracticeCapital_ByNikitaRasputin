@@ -25,11 +25,12 @@ namespace PracticeCapital_ByNikitaRasputin
         private void arbitrButton_Click(object sender, EventArgs e) 
         { 
             if (simpleDataBox.SelectedIndex != 0) 
-                AnalysisMethods.CheckYellowGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, compareValues, "Найдено 0 дел"); 
+                AnalysisMethods.CheckYellowGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, GetGreenValues(), "Найдено 0 дел"); 
         }
 
         private void DataAnalysis_Load(object sender, EventArgs e)
         {
+            compareValueTable.Rows[0].Cells[1].Value = "Положительный";
             localRadio.Checked = true;
             columns.Add("Нет");
             foreach (DataColumn column in form1.dataTable.Columns) columns.Add(column.ColumnName);
@@ -85,31 +86,32 @@ namespace PracticeCapital_ByNikitaRasputin
         private void liquidationButton_Click(object sender, EventArgs e)
         {
             if (simpleDataBox.SelectedIndex == 0) return;
-            AnalysisMethods.CheckRedGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, compareValues);
+            AnalysisMethods.CheckRedYellowGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, GetGreenValues(), GetYellowValues(), "Действующее", "В стадии реорганизации");
             for(int i = 0; i < form1.dataGridView1.RowCount - 1; i++)
             {
                 if (form1.dataGridView1[form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, i].Style.BackColor == Color.FromArgb(255, 128, 128) && !redRows.Contains(i))
                     redRows.Add(i);
             }
-            excludedColumns.Add(form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index);
+            if (!excludedColumns.Contains(form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index))
+                excludedColumns.Add(form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index);
         }
-
         private void massDataButton_Click(object sender, EventArgs e)
         {
             if (simpleDataBox.SelectedIndex == 0) return;
-            AnalysisMethods.CheckYellowGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, compareValues);
+            AnalysisMethods.CheckYellowGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, GetGreenValues());
         }
 
         private void terrButton_Click(object sender, EventArgs e)
         {
             if (simpleDataBox.SelectedIndex == 0) return;
-            AnalysisMethods.CheckRedGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, compareValues);
+            AnalysisMethods.CheckRedGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, GetGreenValues());
             for (int i = 0; i < form1.dataGridView1.RowCount - 1; i++)
             {
                 if (form1.dataGridView1[form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, i].Style.BackColor == Color.FromArgb(255, 128, 128) && !redRows.Contains(i))
                     redRows.Add(i);
             }
-            excludedColumns.Add(form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index);
+            if(!excludedColumns.Contains(form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index)) 
+                excludedColumns.Add(form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index);
         }
 
         private void compareTaxButton_Click(object sender, EventArgs e)
@@ -362,6 +364,29 @@ namespace PracticeCapital_ByNikitaRasputin
                     }
                 }
             }
+        }
+
+        private void compareValueTable_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            compareValueTable.Rows[e.RowIndex].Cells[1].Value = "Положительный";
+        }
+        private List<string> GetGreenValues()
+        {
+            List<string> values = new List<string>();
+            for(int i = 0; i < compareValueTable.Rows.Count - 1; i++) 
+            {
+                if (compareValueTable[1, i].Value.ToString() == "Положительный") values.Add(compareValueTable[0, i].Value.ToString());
+            }
+            return values;
+        }
+        private List<string> GetYellowValues()
+        {
+            List<string> values = new List<string>();
+            for (int i = 0; i < compareValueTable.Rows.Count - 1; i++)
+            {
+                if (compareValueTable[1, i].Value.ToString() == "Нейтральный") values.Add(compareValueTable[0, i].Value.ToString());
+            }
+            return values;
         }
     }
 }

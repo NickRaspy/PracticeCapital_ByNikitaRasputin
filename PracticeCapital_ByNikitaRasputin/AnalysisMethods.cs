@@ -44,6 +44,7 @@ namespace PracticeCapital_ByNikitaRasputin
                     else dataGrid[taxesColumns[j], i].Style.BackColor = Color.FromArgb(255, 128, 128);
                 }
             }
+            MessageBox.Show("Готово", "Конец операции", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         public static void CheckRedGreen(DataGridView dataGrid, int columnIndex, List<string> compareValues = null, string compareValue = "Нет")
         {
@@ -66,15 +67,17 @@ namespace PracticeCapital_ByNikitaRasputin
             }
             MessageBox.Show("Готово", "Конец операции", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        public static void CheckRedYellowGreen(DataGridView dataGrid, int columnIndex, List<string> compareValues = null, string greenCompareValue = "Нет", string yellowCompareValue = "")
+        public static void CheckRedYellowGreen(DataGridView dataGrid, int columnIndex, List<string> greenCompareValues = null, List<string> yellowCompareValues = null, string greenCompareValue = "Нет", string yellowCompareValue = "")
         {
-            if (compareValues == null) compareValues = new List<string>();
+            if (greenCompareValues == null) greenCompareValues = new List<string>();
+            if(yellowCompareValues == null) yellowCompareValues = new List<string>();
             for (int i = 0; i < dataGrid.Rows.Count - 1; i++)
             {
-                if (dataGrid.Rows[i].Cells[columnIndex].Value.ToString() == greenCompareValue || compareValues.Contains(dataGrid.Rows[i].Cells[columnIndex].Value.ToString())) dataGrid.Rows[i].Cells[columnIndex].Style.BackColor = Color.FromArgb(128, 255, 128);
-                else if(dataGrid.Rows[i].Cells[columnIndex].Value.ToString() == yellowCompareValue) dataGrid.Rows[i].Cells[columnIndex].Style.BackColor = Color.FromArgb(243, 255, 74);
+                if (dataGrid.Rows[i].Cells[columnIndex].Value.ToString() == greenCompareValue || greenCompareValues.Contains(dataGrid.Rows[i].Cells[columnIndex].Value.ToString())) dataGrid.Rows[i].Cells[columnIndex].Style.BackColor = Color.FromArgb(128, 255, 128);
+                else if(dataGrid.Rows[i].Cells[columnIndex].Value.ToString() == yellowCompareValue || yellowCompareValues.Contains(dataGrid.Rows[i].Cells[columnIndex].Value.ToString())) dataGrid.Rows[i].Cells[columnIndex].Style.BackColor = Color.FromArgb(243, 255, 74);
                 else dataGrid.Rows[i].Cells[columnIndex].Style.BackColor = Color.FromArgb(255, 128, 128);
             }
+            MessageBox.Show("Готово", "Конец операции", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         public static void CheckStaffCount(DataGridView dataGrid, int columnIndex)
         {

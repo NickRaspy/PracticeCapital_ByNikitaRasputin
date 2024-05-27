@@ -47,6 +47,7 @@ namespace PracticeCapital_ByNikitaRasputin
 
         private void AddRemoveColumns_Load(object sender, EventArgs e)
         {
+            columnNamesTable.Rows[0].Cells[1].Value = "Текстовый";
             if (form1.dataTable.Columns.Count > 0)
             {
                 for (int i = 0; i < form1.dataTable.Columns.Count; i++)
@@ -62,13 +63,46 @@ namespace PracticeCapital_ByNikitaRasputin
 
         private void completeButton_Click(object sender, EventArgs e)
         {
-            List<string> names = new List<string>();
-            for (int i = 0; i < columnNamesTable.Rows.Count - 1; i++) names.Add(columnNamesTable[0, i].Value.ToString());
-            for (int i = 0; i < form1.dataTable.Columns.Count; i++)
+            if(form1.dataTable.Columns.Count > 0)
             {
-                if (!names.Contains(form1.dataTable.Columns[i].ColumnName)) form1.dataTable.Columns.RemoveAt(i);
+                List<string> names = new List<string>();
+                for (int i = 0; i < columnNamesTable.Rows.Count - 1; i++) names.Add(columnNamesTable[0, i].Value.ToString());
+                DataTable temp = form1.dataTable.Copy();
+                foreach (DataColumn column in temp.Columns)
+                {
+                    if (!names.Contains(column.ColumnName)) form1.dataTable.Columns.RemoveAt(form1.dataTable.Columns.IndexOf(column.ColumnName));
+                }
+            }
+            try
+            {
+                for (int i = 0; i < columnNamesTable.Rows.Count - 1; i++)
+                {
+                    if(columnNamesTable.Rows[i].Cells[0].Value == null) continue;
+                    if (form1.dataTable.Columns.IndexOf(columnNamesTable.Rows[i].Cells[0].Value.ToString()) == -1)
+                    {
+                        form1.dataTable.Columns.Add(columnNamesTable.Rows[i].Cells[0].Value.ToString(), columnNamesTable.Rows[i].Cells[1].Value.ToString() == "Текстовый" ? typeof(string) : typeof(double));
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Столбцы не должны быть одинаковыми!");
+            }
+            if(form1.dataTable.Columns.Count > 0)
+            {
+                form1.GetColumns();
+                form1.secondaryTableButton.Enabled = true;
+                form1.webDataButton.Enabled = true;
+                form1.dataSaveButton.Enabled = true;
+                form1.analysisButton.Enabled = true;
+                form1.columnClearButton.Enabled = true;
             }
             this.Close();
+        }
+
+        private void columnNamesTable_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            if(columnNamesTable.Rows[e.RowIndex].Cells[1].Value == null) columnNamesTable.Rows[e.RowIndex].Cells[1].Value = "Текстовый";
         }
     }
 }

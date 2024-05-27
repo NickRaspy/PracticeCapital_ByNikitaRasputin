@@ -170,7 +170,6 @@ namespace PracticeCapital_ByNikitaRasputin
                         GovDBDataGathering.Terrorists(inns, dataTable, chromiumWebBrowser1, browserCheck, token);
                         break;
                     case 4:
-                        browserCheck.Checked = false;
                         MessageBox.Show("У данного сервиса ограниченное количество запросов у неавторизованных пользователей. Авторизуйтесь на сайте и после этого нажмите кнопку Начать");
                         try
                         {
@@ -179,8 +178,11 @@ namespace PracticeCapital_ByNikitaRasputin
                         catch
                         {
                             MessageBox.Show("Не удалось подключиться к сервису. Проверьте ваше интернет соединение или обратитесь к тех. специалисту.");
+                            return;
                         }
+                        browserCheck.Checked = false;
                         startButton.Enabled = true;
+                        chromiumWebBrowser1.Enabled = true;
                         break;
                     case 5:
                         browserCheck.Checked = false;
@@ -213,6 +215,7 @@ namespace PracticeCapital_ByNikitaRasputin
             switch (GovDBBox.SelectedIndex)
             {
                 case 4:
+                    chromiumWebBrowser1.Enabled = false;
                     GovDBDataGathering.Arbitr(inns, dataTable, chromiumWebBrowser1, browserCheck, token);
                     break;
             }

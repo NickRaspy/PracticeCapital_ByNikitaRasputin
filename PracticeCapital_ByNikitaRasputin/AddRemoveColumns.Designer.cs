@@ -67,6 +67,7 @@
             this.columnNamesTable.RowHeadersVisible = false;
             this.columnNamesTable.Size = new System.Drawing.Size(206, 125);
             this.columnNamesTable.TabIndex = 6;
+            this.columnNamesTable.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.columnNamesTable_RowsAdded);
             this.columnNamesTable.KeyDown += new System.Windows.Forms.KeyEventHandler(this.columnNamesTable_KeyDown);
             // 
             // columnName
