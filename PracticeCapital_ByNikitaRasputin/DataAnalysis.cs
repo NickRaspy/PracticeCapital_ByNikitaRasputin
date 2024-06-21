@@ -80,14 +80,15 @@ namespace PracticeCapital_ByNikitaRasputin
                 expensesColumns[i] = form1.dataGridView1.Columns[expRevDataTable[0, i].Value.ToString()].Index;
                 revenueColumns[i] = form1.dataGridView1.Columns[expRevDataTable[1, i].Value.ToString()].Index;
             }
-            AnalysisMethods.CompareExpensesAndRevenue(form1.dataGridView1, expensesColumns, revenueColumns);
+            try { AnalysisMethods.CompareExpensesAndRevenue(form1.dataGridView1, expensesColumns, revenueColumns); }
+            catch (Exception ex) { form1.errorStacker.AddError("CompareExpProf", ex); MessageBox.Show("Произошла ошибка"); }
         }
-
         private void liquidationButton_Click(object sender, EventArgs e)
         {
             if (simpleDataBox.SelectedIndex == 0) return;
-            AnalysisMethods.CheckRedYellowGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, GetGreenValues(), GetYellowValues(), "Действующее", "В стадии реорганизации");
-            for(int i = 0; i < form1.dataGridView1.RowCount - 1; i++)
+            try { AnalysisMethods.CheckRedYellowGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, GetGreenValues(), GetYellowValues(), "Действующее", "В стадии реорганизации"); }
+            catch(Exception ex) { form1.errorStacker.AddError("Liquidation", ex); MessageBox.Show("Произошла ошибка"); }
+            for (int i = 0; i < form1.dataGridView1.RowCount - 1; i++)
             {
                 if (form1.dataGridView1[form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, i].Style.BackColor == Color.FromArgb(255, 128, 128) && !redRows.Contains(i))
                     redRows.Add(i);
@@ -98,13 +99,21 @@ namespace PracticeCapital_ByNikitaRasputin
         private void massDataButton_Click(object sender, EventArgs e)
         {
             if (simpleDataBox.SelectedIndex == 0) return;
-            AnalysisMethods.CheckYellowGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, GetGreenValues());
+            try
+            {
+                AnalysisMethods.CheckYellowGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, GetGreenValues());
+            }
+            catch (Exception ex) { form1.errorStacker.AddError("MassData", ex); MessageBox.Show("Произошла ошибка"); }
         }
 
         private void terrButton_Click(object sender, EventArgs e)
         {
             if (simpleDataBox.SelectedIndex == 0) return;
-            AnalysisMethods.CheckRedGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, GetGreenValues());
+            try
+            {
+                AnalysisMethods.CheckRedGreen(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, GetGreenValues());
+            }
+            catch (Exception ex) { form1.errorStacker.AddError("Terrorists", ex); MessageBox.Show("Произошла ошибка"); }
             for (int i = 0; i < form1.dataGridView1.RowCount - 1; i++)
             {
                 if (form1.dataGridView1[form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index, i].Style.BackColor == Color.FromArgb(255, 128, 128) && !redRows.Contains(i))
@@ -127,9 +136,9 @@ namespace PracticeCapital_ByNikitaRasputin
                 profitsColumns[i] = form1.dataGridView1.Columns[profTaxDataTable[0, i].Value.ToString()].Index;
                 taxesColumns[i] = form1.dataGridView1.Columns[profTaxDataTable[1, i].Value.ToString()].Index;
             }
-            AnalysisMethods.CompareTaxAndProfit(form1.dataGridView1, profitsColumns, taxesColumns);
+            try { AnalysisMethods.CompareTaxAndProfit(form1.dataGridView1, profitsColumns, taxesColumns); }
+            catch (Exception ex) { form1.errorStacker.AddError("CompareTax", ex); MessageBox.Show("Произошла ошибка"); }
         }
-
         private void localRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (localRadio.Checked)
@@ -175,7 +184,8 @@ namespace PracticeCapital_ByNikitaRasputin
                     balanceColumns[i] = form1.dataGridView1.Columns[balanceDataTable[0, i].Value.ToString()].Index;
                     auditColumns[i] = form1.dataGridView1.Columns[balanceDataTable[1, i].Value.ToString()].Index;
                 }
-                AnalysisMethods.CompareBalanceWithAudit(form1.dataGridView1, balanceColumns, divider, auditColumns, !string.IsNullOrEmpty(balanceCompareBox.Text) ? balanceCompareBox.Text : "Нет");
+                try { AnalysisMethods.CompareBalanceWithAudit(form1.dataGridView1, balanceColumns, divider, auditColumns, !string.IsNullOrEmpty(balanceCompareBox.Text) ? balanceCompareBox.Text : "Нет"); }
+                catch(Exception ex) { form1.errorStacker.AddError("BalanceLocal", ex); MessageBox.Show("Произошла ошибка"); }
             }
             else if (netRadio.Checked)
             {
@@ -194,7 +204,8 @@ namespace PracticeCapital_ByNikitaRasputin
                 int[] years = new int[balanceDataTable.RowCount - 1];
                 for (int i = 0; i < balanceDataTable.RowCount - 1; i++) years[i] = (int)balanceDataTable[0, i].Value;
                 this.Enabled = false;
-                AnalysisMethods.CompareBalanceWithAudit(this,form1.dataGridView1, balanceColumns, divider, inns, years);
+                try { AnalysisMethods.CompareBalanceWithAudit(this, form1.dataGridView1, balanceColumns, divider, inns, years); }
+                catch (Exception ex) { form1.errorStacker.AddError("BalanceNet", ex); MessageBox.Show("Произошла ошибка"); }
             }
         }
 
@@ -305,13 +316,17 @@ namespace PracticeCapital_ByNikitaRasputin
         private void staffsButton_Click(object sender, EventArgs e)
         {
             if (simpleDataBox.SelectedIndex == 0) return;
-            AnalysisMethods.CheckStaffCount(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index);
+            try { AnalysisMethods.CheckStaffCount(form1.dataGridView1, form1.dataGridView1.Columns[simpleDataBox.SelectedItem.ToString()].Index); }
+            catch (Exception ex) { form1.errorStacker.AddError("Staffs", ex); MessageBox.Show("Произошла ошибка"); }
         }
-
         private void dzkzButton_Click(object sender, EventArgs e)
         {
             if(dzCombo.SelectedIndex == 0 || kzCombo.SelectedIndex == 0) return;
-            AnalysisMethods.CompareDzKz(form1.dataGridView1, form1.dataGridView1.Columns[dzCombo.SelectedItem.ToString()].Index, form1.dataGridView1.Columns[kzCombo.SelectedItem.ToString()].Index);
+            try
+            {
+                AnalysisMethods.CompareDzKz(form1.dataGridView1, form1.dataGridView1.Columns[dzCombo.SelectedItem.ToString()].Index, form1.dataGridView1.Columns[kzCombo.SelectedItem.ToString()].Index);
+            }
+            catch (Exception ex) { form1.errorStacker.AddError("DzKz", ex); MessageBox.Show("Произошла ошибка"); }
         }
 
         private void compareValueTable_KeyDown(object sender, KeyEventArgs e)

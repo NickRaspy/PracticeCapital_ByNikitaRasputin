@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using OfficeOpenXml;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.IO;
-using System.Net;
-using System.Web;
+using System.Windows.Forms;
 
 namespace PracticeCapital_ByNikitaRasputin
 {
@@ -22,6 +12,8 @@ namespace PracticeCapital_ByNikitaRasputin
         private List<string> columns = new List<string>();
         public string testString;
         public DataTable dataTable = new DataTable();
+        public string dir = $"C:/Users/{Environment.UserName}/Documents/ContragentDataGatherer";
+        public ErrorStacker errorStacker = new ErrorStacker();
         public Form1()
         {
             InitializeComponent();
@@ -29,10 +21,7 @@ namespace PracticeCapital_ByNikitaRasputin
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string dir = $"C:/Users/{Environment.UserName}/Documents/ContragentDataGatherer";
-            string path = Path.Combine(dir,"errorstack.txt");
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-            if(!File.Exists(path)) File.Create(path);
             dataGridView1.DataSource = dataTable;
             columnBox.Items.Add("нет");
             columnBox.SelectedIndex = 0;
@@ -81,11 +70,11 @@ namespace PracticeCapital_ByNikitaRasputin
 
         private void analysisButton_Click(object sender, EventArgs e)
         {
-            DataAnalysis dataAnalysis = new DataAnalysis() {form1 = this };
+            DataAnalysis dataAnalysis = new DataAnalysis() { form1 = this };
             dataAnalysis.Show();
-            foreach(Control control in this.Controls)
+            foreach (Control control in this.Controls)
             {
-                if(control != dataGridView1) control.Enabled = false;
+                if (control != dataGridView1) control.Enabled = false;
             }
             this.dataGridView1.ReadOnly = true;
         }
@@ -110,6 +99,11 @@ namespace PracticeCapital_ByNikitaRasputin
             addRemoveColumns.form1 = this;
             addRemoveColumns.Show();
             this.Enabled = false;
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(errorStacker.errorStack)) errorStacker.Save();
         }
     }
 }

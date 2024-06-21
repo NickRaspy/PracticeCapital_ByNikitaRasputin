@@ -43,17 +43,20 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
+            this.dataGridView1.Location = new System.Drawing.Point(16, 15);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(591, 498);
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.Size = new System.Drawing.Size(788, 613);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridView1_ColumnAdded);
             // 
             // tableButton
             // 
-            this.tableButton.Location = new System.Drawing.Point(624, 12);
+            this.tableButton.Location = new System.Drawing.Point(832, 15);
+            this.tableButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableButton.Name = "tableButton";
-            this.tableButton.Size = new System.Drawing.Size(132, 53);
+            this.tableButton.Size = new System.Drawing.Size(176, 65);
             this.tableButton.TabIndex = 1;
             this.tableButton.Text = "Подключить редактируемую таблицу";
             this.tableButton.UseVisualStyleBackColor = true;
@@ -62,9 +65,10 @@
             // secondaryTableButton
             // 
             this.secondaryTableButton.Enabled = false;
-            this.secondaryTableButton.Location = new System.Drawing.Point(624, 125);
+            this.secondaryTableButton.Location = new System.Drawing.Point(832, 154);
+            this.secondaryTableButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.secondaryTableButton.Name = "secondaryTableButton";
-            this.secondaryTableButton.Size = new System.Drawing.Size(132, 48);
+            this.secondaryTableButton.Size = new System.Drawing.Size(176, 59);
             this.secondaryTableButton.TabIndex = 2;
             this.secondaryTableButton.Text = "Добавить данные из внешей таблицы";
             this.secondaryTableButton.UseVisualStyleBackColor = true;
@@ -73,9 +77,10 @@
             // webDataButton
             // 
             this.webDataButton.Enabled = false;
-            this.webDataButton.Location = new System.Drawing.Point(624, 179);
+            this.webDataButton.Location = new System.Drawing.Point(832, 220);
+            this.webDataButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.webDataButton.Name = "webDataButton";
-            this.webDataButton.Size = new System.Drawing.Size(132, 48);
+            this.webDataButton.Size = new System.Drawing.Size(176, 59);
             this.webDataButton.TabIndex = 3;
             this.webDataButton.Text = "Добавить данные из внешних источников";
             this.webDataButton.UseVisualStyleBackColor = true;
@@ -84,9 +89,10 @@
             // dataSaveButton
             // 
             this.dataSaveButton.Enabled = false;
-            this.dataSaveButton.Location = new System.Drawing.Point(624, 457);
+            this.dataSaveButton.Location = new System.Drawing.Point(832, 562);
+            this.dataSaveButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataSaveButton.Name = "dataSaveButton";
-            this.dataSaveButton.Size = new System.Drawing.Size(132, 53);
+            this.dataSaveButton.Size = new System.Drawing.Size(176, 65);
             this.dataSaveButton.TabIndex = 4;
             this.dataSaveButton.Text = "Сохранить данные в таблицу\r\n";
             this.dataSaveButton.UseVisualStyleBackColor = true;
@@ -95,9 +101,10 @@
             // analysisButton
             // 
             this.analysisButton.Enabled = false;
-            this.analysisButton.Location = new System.Drawing.Point(624, 351);
+            this.analysisButton.Location = new System.Drawing.Point(832, 432);
+            this.analysisButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.analysisButton.Name = "analysisButton";
-            this.analysisButton.Size = new System.Drawing.Size(132, 48);
+            this.analysisButton.Size = new System.Drawing.Size(176, 59);
             this.analysisButton.TabIndex = 5;
             this.analysisButton.Text = "Анализ данных";
             this.analysisButton.UseVisualStyleBackColor = true;
@@ -106,9 +113,10 @@
             // columnClearButton
             // 
             this.columnClearButton.Enabled = false;
-            this.columnClearButton.Location = new System.Drawing.Point(624, 309);
+            this.columnClearButton.Location = new System.Drawing.Point(832, 380);
+            this.columnClearButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.columnClearButton.Name = "columnClearButton";
-            this.columnClearButton.Size = new System.Drawing.Size(132, 36);
+            this.columnClearButton.Size = new System.Drawing.Size(176, 44);
             this.columnClearButton.TabIndex = 6;
             this.columnClearButton.Text = "Очистить цвета столбца";
             this.columnClearButton.UseVisualStyleBackColor = true;
@@ -117,16 +125,18 @@
             // columnBox
             // 
             this.columnBox.FormattingEnabled = true;
-            this.columnBox.Location = new System.Drawing.Point(624, 282);
+            this.columnBox.Location = new System.Drawing.Point(832, 347);
+            this.columnBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.columnBox.Name = "columnBox";
-            this.columnBox.Size = new System.Drawing.Size(132, 21);
+            this.columnBox.Size = new System.Drawing.Size(175, 24);
             this.columnBox.TabIndex = 7;
             // 
             // addColumnsButton
             // 
-            this.addColumnsButton.Location = new System.Drawing.Point(624, 71);
+            this.addColumnsButton.Location = new System.Drawing.Point(832, 87);
+            this.addColumnsButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addColumnsButton.Name = "addColumnsButton";
-            this.addColumnsButton.Size = new System.Drawing.Size(132, 48);
+            this.addColumnsButton.Size = new System.Drawing.Size(176, 59);
             this.addColumnsButton.TabIndex = 8;
             this.addColumnsButton.Text = "Добавить/удалить столбцы данных";
             this.addColumnsButton.UseVisualStyleBackColor = true;
@@ -134,9 +144,9 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 522);
+            this.ClientSize = new System.Drawing.Size(1024, 642);
             this.Controls.Add(this.addColumnsButton);
             this.Controls.Add(this.columnBox);
             this.Controls.Add(this.columnClearButton);
@@ -147,9 +157,11 @@
             this.Controls.Add(this.tableButton);
             this.Controls.Add(this.dataGridView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Сбор данных об контрагентах и их анализ";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

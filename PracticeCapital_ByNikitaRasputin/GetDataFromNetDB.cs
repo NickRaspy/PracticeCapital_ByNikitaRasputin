@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Policy;
@@ -15,6 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using CefSharp;
 using CefSharp.DevTools.Debugger;
+using CefSharp.DevTools.Network;
 using CefSharp.DevTools.Runtime;
 using CefSharp.WinForms;
 using HtmlAgilityPack;
@@ -34,6 +36,7 @@ namespace PracticeCapital_ByNikitaRasputin
         private Thread thread;
         public Form1 form1;
         string html;
+        private ErrorStacker errorStacker = new ErrorStacker();
         public GetDataFromNetDB()
         {
             InitializeComponent();
@@ -114,6 +117,7 @@ namespace PracticeCapital_ByNikitaRasputin
         }
         private void GetDataFromNetDB_Load(object sender, EventArgs e)
         {
+            errorStacker = form1.errorStacker;
             if(form1.dataTable != null)
                 for (int i = 0; i < form1.dataTable.Columns.Count; i++)
                 {
@@ -154,15 +158,15 @@ namespace PracticeCapital_ByNikitaRasputin
                 {
                     case 0:
                         browserCheck.Checked = false;
-                        GovDBDataGathering.BFONalog(inns, dataTable, browserCheck, token);
+                        GovDBDataGathering.BFONalog(inns, dataTable, browserCheck, token, errorStacker);
                         break;
                     case 1:
                         browserCheck.Checked = false;
-                        GovDBDataGathering.FindOrg(inns, dataTable, chromiumWebBrowser1, browserCheck, token);
+                        GovDBDataGathering.FindOrg(inns, dataTable, chromiumWebBrowser1, browserCheck, token, errorStacker);
                         break;
                     case 2:
                         browserCheck.Checked = false;
-                        GovDBDataGathering.ListOrg(inns, dataTable, chromiumWebBrowser1, browserCheck, token);
+                        GovDBDataGathering.ListOrg(inns, dataTable, chromiumWebBrowser1, browserCheck, token, errorStacker);
                         break;
                     case 3:
                         browserCheck.Checked = false;
@@ -170,15 +174,15 @@ namespace PracticeCapital_ByNikitaRasputin
                         break;
                     case 4:
                         browserCheck.Checked = false;
-                        GovDBDataGathering.Arbitr(inns, dataTable, chromiumWebBrowser1, browserCheck, token);
+                        GovDBDataGathering.Arbitr(inns, dataTable, chromiumWebBrowser1, browserCheck, token, errorStacker);
                         break;
                     case 5:
                         browserCheck.Checked = false;
-                        GovDBDataGathering.ClearBusiness(inns, dataTable, chromiumWebBrowser1, browserCheck, token);
+                        GovDBDataGathering.ClearBusiness(inns, dataTable, chromiumWebBrowser1, browserCheck, token, errorStacker);
                         break;
                     case 6:
                         browserCheck.Checked = false;
-                        GovDBDataGathering.ForFairBussiness(inns, dataTable, chromiumWebBrowser1, browserCheck, token);
+                        GovDBDataGathering.ForFairBussiness(inns, dataTable, chromiumWebBrowser1, browserCheck, token, errorStacker);
                         break;
                 }
             }
@@ -353,8 +357,6 @@ namespace PracticeCapital_ByNikitaRasputin
                 dataTable.Columns.RemoveAt(1);
             }
         }
-
-
     }
     internal class OpenPageSelf : ILifeSpanHandler
     {
