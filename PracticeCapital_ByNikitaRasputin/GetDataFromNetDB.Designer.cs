@@ -58,9 +58,10 @@
             // chromiumWebBrowser1
             // 
             this.chromiumWebBrowser1.ActivateBrowserOnCreation = false;
-            this.chromiumWebBrowser1.Location = new System.Drawing.Point(495, 39);
+            this.chromiumWebBrowser1.Location = new System.Drawing.Point(660, 48);
+            this.chromiumWebBrowser1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chromiumWebBrowser1.Name = "chromiumWebBrowser1";
-            this.chromiumWebBrowser1.Size = new System.Drawing.Size(713, 535);
+            this.chromiumWebBrowser1.Size = new System.Drawing.Size(951, 658);
             this.chromiumWebBrowser1.TabIndex = 3;
             this.chromiumWebBrowser1.AddressChanged += new System.EventHandler<CefSharp.AddressChangedEventArgs>(this.chromiumWebBrowser1_AddressChanged);
             this.chromiumWebBrowser1.LoadingStateChanged += new System.EventHandler<CefSharp.LoadingStateChangedEventArgs>(this.chromiumWebBrowser1_LoadingStateChanged);
@@ -68,9 +69,11 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 110);
+            this.dataGridView1.Location = new System.Drawing.Point(16, 135);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(477, 254);
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.Size = new System.Drawing.Size(636, 313);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridView1_ColumnAdded);
             this.dataGridView1.ColumnRemoved += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridView1_ColumnRemoved);
@@ -79,27 +82,30 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(16, 11);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 20);
+            this.label1.Size = new System.Drawing.Size(265, 31);
             this.label1.TabIndex = 7;
-            this.label1.Text = "Столбец с ИНН";
+            this.label1.Text = "Столбец с ИНН/ОГРН";
             // 
             // INNBox
             // 
             this.INNBox.FormattingEnabled = true;
-            this.INNBox.Location = new System.Drawing.Point(287, 12);
+            this.INNBox.Location = new System.Drawing.Point(383, 15);
+            this.INNBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.INNBox.Name = "INNBox";
-            this.INNBox.Size = new System.Drawing.Size(121, 21);
+            this.INNBox.Size = new System.Drawing.Size(160, 24);
             this.INNBox.TabIndex = 8;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label2.Location = new System.Drawing.Point(12, 52);
+            this.label2.Location = new System.Drawing.Point(16, 64);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(150, 20);
+            this.label2.Size = new System.Drawing.Size(186, 25);
             this.label2.TabIndex = 9;
             this.label2.Text = "Источники данных";
             // 
@@ -115,18 +121,20 @@
             "Арбитраж",
             "Прозрачный бизнес",
             "ЗАЧЕСТНЫЙБИЗНЕС"});
-            this.GovDBBox.Location = new System.Drawing.Point(287, 54);
+            this.GovDBBox.Location = new System.Drawing.Point(383, 66);
+            this.GovDBBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.GovDBBox.Name = "GovDBBox";
-            this.GovDBBox.Size = new System.Drawing.Size(121, 21);
+            this.GovDBBox.Size = new System.Drawing.Size(160, 24);
             this.GovDBBox.TabIndex = 10;
             this.GovDBBox.SelectedIndexChanged += new System.EventHandler(this.GovDBBox_SelectedIndexChanged);
             // 
             // searchButton
             // 
             this.searchButton.Enabled = false;
-            this.searchButton.Location = new System.Drawing.Point(414, 52);
+            this.searchButton.Location = new System.Drawing.Point(552, 64);
+            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(75, 23);
+            this.searchButton.Size = new System.Drawing.Size(100, 28);
             this.searchButton.TabIndex = 11;
             this.searchButton.Text = "Поиск";
             this.searchButton.UseVisualStyleBackColor = true;
@@ -134,9 +142,10 @@
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(414, 10);
+            this.addButton.Location = new System.Drawing.Point(552, 12);
+            this.addButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(75, 23);
+            this.addButton.Size = new System.Drawing.Size(100, 28);
             this.addButton.TabIndex = 12;
             this.addButton.Text = "Добавить";
             this.addButton.UseVisualStyleBackColor = true;
@@ -145,9 +154,10 @@
             // startButton
             // 
             this.startButton.Enabled = false;
-            this.startButton.Location = new System.Drawing.Point(287, 81);
+            this.startButton.Location = new System.Drawing.Point(383, 100);
+            this.startButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(121, 23);
+            this.startButton.Size = new System.Drawing.Size(161, 28);
             this.startButton.TabIndex = 13;
             this.startButton.Text = "Начать";
             this.startButton.UseVisualStyleBackColor = true;
@@ -155,9 +165,10 @@
             // 
             // backPageButton
             // 
-            this.backPageButton.Location = new System.Drawing.Point(495, 6);
+            this.backPageButton.Location = new System.Drawing.Point(660, 7);
+            this.backPageButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.backPageButton.Name = "backPageButton";
-            this.backPageButton.Size = new System.Drawing.Size(32, 27);
+            this.backPageButton.Size = new System.Drawing.Size(43, 33);
             this.backPageButton.TabIndex = 14;
             this.backPageButton.Text = "<-";
             this.backPageButton.UseVisualStyleBackColor = true;
@@ -165,9 +176,10 @@
             // 
             // goPageButton
             // 
-            this.goPageButton.Location = new System.Drawing.Point(529, 6);
+            this.goPageButton.Location = new System.Drawing.Point(705, 7);
+            this.goPageButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.goPageButton.Name = "goPageButton";
-            this.goPageButton.Size = new System.Drawing.Size(32, 27);
+            this.goPageButton.Size = new System.Drawing.Size(43, 33);
             this.goPageButton.TabIndex = 15;
             this.goPageButton.Text = "->";
             this.goPageButton.UseVisualStyleBackColor = true;
@@ -175,9 +187,10 @@
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(564, 6);
+            this.refreshButton.Location = new System.Drawing.Point(752, 7);
+            this.refreshButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(68, 27);
+            this.refreshButton.Size = new System.Drawing.Size(91, 33);
             this.refreshButton.TabIndex = 16;
             this.refreshButton.Text = "Обновить";
             this.refreshButton.UseVisualStyleBackColor = true;
@@ -185,9 +198,10 @@
             // 
             // goButton
             // 
-            this.goButton.Location = new System.Drawing.Point(1140, 8);
+            this.goButton.Location = new System.Drawing.Point(1520, 10);
+            this.goButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.goButton.Name = "goButton";
-            this.goButton.Size = new System.Drawing.Size(68, 27);
+            this.goButton.Size = new System.Drawing.Size(91, 33);
             this.goButton.TabIndex = 17;
             this.goButton.Text = "Перейти";
             this.goButton.UseVisualStyleBackColor = true;
@@ -195,9 +209,10 @@
             // 
             // urlBox
             // 
-            this.urlBox.Location = new System.Drawing.Point(638, 10);
+            this.urlBox.Location = new System.Drawing.Point(851, 12);
+            this.urlBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.urlBox.Name = "urlBox";
-            this.urlBox.Size = new System.Drawing.Size(496, 20);
+            this.urlBox.Size = new System.Drawing.Size(660, 22);
             this.urlBox.TabIndex = 18;
             // 
             // browserCheck
@@ -205,9 +220,10 @@
             this.browserCheck.AutoSize = true;
             this.browserCheck.Checked = true;
             this.browserCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.browserCheck.Location = new System.Drawing.Point(16, 32);
+            this.browserCheck.Location = new System.Drawing.Point(21, 39);
+            this.browserCheck.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.browserCheck.Name = "browserCheck";
-            this.browserCheck.Size = new System.Drawing.Size(15, 14);
+            this.browserCheck.Size = new System.Drawing.Size(18, 17);
             this.browserCheck.TabIndex = 19;
             this.browserCheck.UseVisualStyleBackColor = true;
             this.browserCheck.Visible = false;
@@ -217,9 +233,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label3.Location = new System.Drawing.Point(10, 375);
+            this.label3.Location = new System.Drawing.Point(13, 462);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(228, 20);
+            this.label3.Size = new System.Drawing.Size(281, 25);
             this.label3.TabIndex = 26;
             this.label3.Text = "Способ заполнения таблицы";
             // 
@@ -229,9 +246,10 @@
             this.fillTypeCombo.Items.AddRange(new object[] {
             "Заменить все",
             "Заполнить пустые"});
-            this.fillTypeCombo.Location = new System.Drawing.Point(384, 377);
+            this.fillTypeCombo.Location = new System.Drawing.Point(512, 464);
+            this.fillTypeCombo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.fillTypeCombo.Name = "fillTypeCombo";
-            this.fillTypeCombo.Size = new System.Drawing.Size(105, 21);
+            this.fillTypeCombo.Size = new System.Drawing.Size(139, 24);
             this.fillTypeCombo.TabIndex = 27;
             // 
             // dataGridView2
@@ -240,15 +258,18 @@
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.table_redact,
             this.table_add});
-            this.dataGridView2.Location = new System.Drawing.Point(12, 404);
+            this.dataGridView2.Location = new System.Drawing.Point(16, 497);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(477, 150);
+            this.dataGridView2.RowHeadersWidth = 51;
+            this.dataGridView2.Size = new System.Drawing.Size(636, 185);
             this.dataGridView2.TabIndex = 25;
             // 
             // table_redact
             // 
             this.table_redact.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.table_redact.HeaderText = "Редактируемая таблица";
+            this.table_redact.MinimumWidth = 6;
             this.table_redact.Name = "table_redact";
             this.table_redact.ReadOnly = true;
             // 
@@ -256,13 +277,15 @@
             // 
             this.table_add.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.table_add.HeaderText = "Используемая таблица";
+            this.table_add.MinimumWidth = 6;
             this.table_add.Name = "table_add";
             // 
             // finalButton
             // 
-            this.finalButton.Location = new System.Drawing.Point(208, 560);
+            this.finalButton.Location = new System.Drawing.Point(277, 689);
+            this.finalButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.finalButton.Name = "finalButton";
-            this.finalButton.Size = new System.Drawing.Size(88, 23);
+            this.finalButton.Size = new System.Drawing.Size(117, 28);
             this.finalButton.TabIndex = 24;
             this.finalButton.Text = "Готово";
             this.finalButton.UseVisualStyleBackColor = true;
@@ -271,9 +294,10 @@
             // stopButton
             // 
             this.stopButton.Enabled = false;
-            this.stopButton.Location = new System.Drawing.Point(414, 81);
+            this.stopButton.Location = new System.Drawing.Point(552, 100);
+            this.stopButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.stopButton.Name = "stopButton";
-            this.stopButton.Size = new System.Drawing.Size(75, 23);
+            this.stopButton.Size = new System.Drawing.Size(100, 28);
             this.stopButton.TabIndex = 28;
             this.stopButton.Text = "Прервать";
             this.stopButton.UseVisualStyleBackColor = true;
@@ -281,9 +305,10 @@
             // 
             // clearDataTableButton
             // 
-            this.clearDataTableButton.Location = new System.Drawing.Point(12, 81);
+            this.clearDataTableButton.Location = new System.Drawing.Point(16, 100);
+            this.clearDataTableButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.clearDataTableButton.Name = "clearDataTableButton";
-            this.clearDataTableButton.Size = new System.Drawing.Size(121, 23);
+            this.clearDataTableButton.Size = new System.Drawing.Size(161, 28);
             this.clearDataTableButton.TabIndex = 29;
             this.clearDataTableButton.Text = "Очистить таблицу";
             this.clearDataTableButton.UseVisualStyleBackColor = true;
@@ -291,9 +316,9 @@
             // 
             // GetDataFromNetDB
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1218, 586);
+            this.ClientSize = new System.Drawing.Size(1624, 721);
             this.Controls.Add(this.clearDataTableButton);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.label3);
@@ -316,6 +341,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.chromiumWebBrowser1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "GetDataFromNetDB";
             this.Text = "Получение данных из открытых источников";

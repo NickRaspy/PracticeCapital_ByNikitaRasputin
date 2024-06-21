@@ -29,6 +29,10 @@ namespace PracticeCapital_ByNikitaRasputin
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string dir = $"C:/Users/{Environment.UserName}/Documents/ContragentDataGatherer";
+            string path = Path.Combine(dir,"errorstack.txt");
+            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+            if(!File.Exists(path)) File.Create(path);
             dataGridView1.DataSource = dataTable;
             columnBox.Items.Add("нет");
             columnBox.SelectedIndex = 0;
