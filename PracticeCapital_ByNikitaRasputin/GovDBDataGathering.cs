@@ -19,6 +19,7 @@ namespace PracticeCapital_ByNikitaRasputin
 {
     public class GovDBDataGathering
     {
+
         public static async void BFONalog(List<string> inns, DataTable dataTable, CheckBox elementsState, CancellationToken token)
         {
             token.Register(() => { return; });
@@ -46,7 +47,7 @@ namespace PracticeCapital_ByNikitaRasputin
             int Calculate2300(JArray data, int pos)
             {
                 int calc = 0;
-                calc = Convert.ToInt32(data[pos]["correction"]["financialResult"]["current2110"]) 
+                calc = Convert.ToInt32(data[pos]["correction"]["financialResult"]["current2110"])
                     - Convert.ToInt32(data[pos]["correction"]["financialResult"]["current2120"])
                     + Convert.ToInt32(data[pos]["correction"]["financialResult"]["current2340"])
                     - Convert.ToInt32(data[pos]["correction"]["financialResult"]["current2350"]);
@@ -197,7 +198,7 @@ namespace PracticeCapital_ByNikitaRasputin
                     HtmlNode node = doc.DocumentNode.SelectSingleNode("//div[@class='pb-card pb-card--clickable']");
                     if (node != null || (node == null && doc.DocumentNode.SelectSingleNode("//div[@data-group='no-data' and @class='pnl-search-result-group']") != null)) break;
                     time = Timer(time, elementsState);
-                    if ((time >= 1000 && !isChecked) || token.IsCancellationRequested) 
+                    if ((time >= 1000 && !isChecked) || token.IsCancellationRequested)
                     {
                         return;
                     }
@@ -249,7 +250,7 @@ namespace PracticeCapital_ByNikitaRasputin
                             if (supervisor.ChildNodes[1].ChildNodes[j].ChildNodes.Count == 0) continue;
                             else
                             {
-                                if(supervisor.ChildNodes[1].ChildNodes[j].ChildNodes.Count > 7)
+                                if (supervisor.ChildNodes[1].ChildNodes[j].ChildNodes.Count > 7)
                                 {
                                     if (Convert.ToInt32(supervisor.ChildNodes[1].ChildNodes[j].ChildNodes[7].ChildNodes[1].ChildNodes[3].InnerText) >= 10)
                                     {
@@ -281,7 +282,7 @@ namespace PracticeCapital_ByNikitaRasputin
                             if (founder.ChildNodes[1].ChildNodes[j].ChildNodes.Count == 0) continue;
                             else
                             {
-                                if(founder.ChildNodes[1].ChildNodes[j].ChildNodes.Count > 5)
+                                if (founder.ChildNodes[1].ChildNodes[j].ChildNodes.Count > 5)
                                 {
                                     if (Convert.ToInt32(founder.ChildNodes[1].ChildNodes[j].ChildNodes[5].ChildNodes[1].ChildNodes[3].InnerText) >= 10)
                                     {
@@ -307,7 +308,7 @@ namespace PracticeCapital_ByNikitaRasputin
                     HtmlNode companyFields = doc.DocumentNode.SelectSingleNode("//div[@id=\"pnlCompanyLeftCol\"]") ?? doc.DocumentNode.SelectSingleNode("//div[@class='col-12 pb-company-multicolumn pt-3']");
                     foreach (HtmlNode node in companyFields.ChildNodes)
                     {
-                        if(node.ChildNodes.Count == 0) continue;
+                        if (node.ChildNodes.Count == 0) continue;
                         else if (node.ChildNodes[1].ChildNodes.Count <= 1) continue;
                         if (node.ChildNodes[1].ChildNodes[1].InnerText == "Дата регистрации:" || node.ChildNodes[1].ChildNodes[1].InnerText == "Дата присвоения ОГРНИП:")
                         {
@@ -398,7 +399,7 @@ namespace PracticeCapital_ByNikitaRasputin
                 }
                 try
                 {
- 
+
                 }
                 catch (Exception ex)
                 {
@@ -446,7 +447,7 @@ namespace PracticeCapital_ByNikitaRasputin
             {
                 if (token.IsCancellationRequested) return;
                 if (terrorists.Contains(inns[i])) dataTable.Rows[i]["Причастность к терроризму"] = "Есть";
-                else if(!terrorists.Contains(inns[i])) dataTable.Rows[i]["Причастность к терроризму"] = "Нет";
+                else if (!terrorists.Contains(inns[i])) dataTable.Rows[i]["Причастность к терроризму"] = "Нет";
             }
             MessageBox.Show("Поиск завершен", "Конец операции", MessageBoxButtons.OK, MessageBoxIcon.Information);
             elementsState.Checked = true;
@@ -482,7 +483,7 @@ namespace PracticeCapital_ByNikitaRasputin
             }
             for (int i = 0; i < inns.Count; i++)
             {
-                if(token.IsCancellationRequested)return;
+                if (token.IsCancellationRequested) return;
                 if (inns[i].Length > 10) continue;
                 await browser.LoadUrlAsync($"https://www.find-org.com/search/all/?val={inns[i]}");
                 html = await browser.GetSourceAsync();
@@ -514,12 +515,12 @@ namespace PracticeCapital_ByNikitaRasputin
                 html = await browser.GetSourceAsync();
                 doc.LoadHtml(html);
                 HtmlNode node = doc.DocumentNode.SelectSingleNode("//div[@class='content-main']");
-                foreach(HtmlNode childNode in node.ChildNodes)
+                foreach (HtmlNode childNode in node.ChildNodes)
                 {
                     if (token.IsCancellationRequested) return;
                     await Task.Delay(1);
-                    if(childNode.FirstChild == null) continue;
-                    switch(childNode.FirstChild.InnerText)
+                    if (childNode.FirstChild == null) continue;
+                    switch (childNode.FirstChild.InnerText)
                     {
                         case "Юридический адрес:":
                             if (string.IsNullOrEmpty(dataTable.Rows[i]["Адрес"].ToString())) dataTable.Rows[i]["Адрес"] = childNode.InnerText.Remove(0, childNode.FirstChild.InnerText.Length + 1);
@@ -537,9 +538,9 @@ namespace PracticeCapital_ByNikitaRasputin
                             if (string.IsNullOrEmpty(dataTable.Rows[i]["ОКВЭД"].ToString())) dataTable.Rows[i]["ОКВЭД"] = childNode.InnerText.Remove(0, childNode.FirstChild.InnerText.Length + 1);
                             break;
                         case "Статус:":
-                            if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) 
+                            if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString()))
                             {
-                                if (childNode.ChildNodes[2].InnerText == "Действующее") 
+                                if (childNode.ChildNodes[2].InnerText == "Действующее")
                                 {
                                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) dataTable.Rows[i]["Статус компании"] = "Действующее";
                                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Причина ликвидации"].ToString())) dataTable.Rows[i]["Причина ликвидации"] = "Нет";
@@ -557,17 +558,17 @@ namespace PracticeCapital_ByNikitaRasputin
                                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Причина ликвидации"].ToString())) dataTable.Rows[i]["Причина ликвидации"] = childNode.ChildNodes[2].InnerText;
                                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата ликвидации"].ToString())) dataTable.Rows[i]["Дата ликвидации"] = node.SelectSingleNode("//ul").ChildNodes[2].ChildNodes[1].InnerText.Replace("\n", "");
                                 }
-                            } 
+                            }
                             break;
                     }
-                    if(childNode.Name == "ul")
+                    if (childNode.Name == "ul")
                     {
-                        foreach(HtmlNode ulChild in childNode.ChildNodes)
+                        foreach (HtmlNode ulChild in childNode.ChildNodes)
                         {
                             if (token.IsCancellationRequested) return;
                             if (ulChild.FirstChild == null) continue;
-                            else if(ulChild.FirstChild.InnerText == " Дата изменения статуса:") 
-                                if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата ликвидации"].ToString())) 
+                            else if (ulChild.FirstChild.InnerText == " Дата изменения статуса:")
+                                if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата ликвидации"].ToString()))
                                     dataTable.Rows[i]["Дата ликвидации"] = ulChild.InnerText.Remove(0, ulChild.FirstChild.InnerText.Length + 1);
                         }
                     }
@@ -595,7 +596,7 @@ namespace PracticeCapital_ByNikitaRasputin
                 if (token.IsCancellationRequested) return;
                 if (browser.Address.StartsWith("https://www.list-org.com/bot"))
                 {
-                    if(!browser.Enabled)MessageBox.Show("Пройдите каптчу", "Каптча", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    if (!browser.Enabled) MessageBox.Show("Пройдите каптчу", "Каптча", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     browser.Enabled = true;
                 }
                 else
@@ -634,7 +635,7 @@ namespace PracticeCapital_ByNikitaRasputin
                     html = await browser.GetSourceAsync();
                     doc.LoadHtml(html);
                     CheckCaptcha();
-                    if (!browser.Enabled) 
+                    if (!browser.Enabled)
                     {
                         time = Timer(time, elementsState);
                         if (time >= 1000 || token.IsCancellationRequested) return;
@@ -645,7 +646,7 @@ namespace PracticeCapital_ByNikitaRasputin
                 doc.LoadHtml(html);
                 HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//div[@class='card w-100 p-1 p-lg-3 mt-2']");
                 bool isIE = false;
-                foreach(HtmlNode node in nodes)
+                foreach (HtmlNode node in nodes)
                 {
                     if (token.IsCancellationRequested) return;
                     if (node.ChildNodes[0].InnerText == "Регистрации в качестве Индивидуального предпринимателя (ИП):")
@@ -664,7 +665,7 @@ namespace PracticeCapital_ByNikitaRasputin
                     switch (node.ChildNodes[0].InnerText)
                     {
                         case "Контактная информация:":
-                            foreach(HtmlNode node2 in node.ChildNodes[1].ChildNodes)
+                            foreach (HtmlNode node2 in node.ChildNodes[1].ChildNodes)
                             {
                                 if (node2.ChildNodes.Count == 0) continue;
                                 if (node2.ChildNodes[0].InnerText == "Юридический адрес:")
@@ -683,9 +684,9 @@ namespace PracticeCapital_ByNikitaRasputin
                             {
                                 string[] dividedString = node.ChildNodes[0].InnerText.Split('(');
                                 string result = "";
-                                foreach(char c in dividedString[1])
+                                foreach (char c in dividedString[1])
                                 {
-                                    if(char.IsNumber(c)) result += c;
+                                    if (char.IsNumber(c)) result += c;
                                 }
                                 dataTable.Rows[i]["Кол-во судебных дел"] = "Найдено " + result + " дел";
                             }
@@ -694,12 +695,12 @@ namespace PracticeCapital_ByNikitaRasputin
                 if (isIE) continue;
                 if (doc.DocumentNode.SelectSingleNode("//td[@class='status_5']") != null)
                 {
-                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) dataTable.Rows[i]["Статус компании"] 
+                    if (string.IsNullOrEmpty(dataTable.Rows[i]["Статус компании"].ToString())) dataTable.Rows[i]["Статус компании"]
                             = doc.DocumentNode.SelectSingleNode("//td[@class='status_5']").InnerText == "Действующее" ? "Действующее" : "В стадии реорганизации";
                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата ликвидации"].ToString())) dataTable.Rows[i]["Дата ликвидации"] = "Нет";
                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Причина ликвидации"].ToString())) dataTable.Rows[i]["Причина ликвидации"] = "Нет";
                 }
-                else if(doc.DocumentNode.SelectSingleNode("//td[@class='status_0']") != null)
+                else if (doc.DocumentNode.SelectSingleNode("//td[@class='status_0']") != null)
                 {
                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Дата ликвидации"].ToString())) dataTable.Rows[i]["Дата ликвидации"] = doc.DocumentNode.SelectSingleNode("//div[@class='warn_red']").InnerText;
                     if (string.IsNullOrEmpty(dataTable.Rows[i]["Причина ликвидации"].ToString())) dataTable.Rows[i]["Причина ликвидации"] = doc.DocumentNode.SelectSingleNode("//td[@class='status_0']").InnerText;
@@ -711,7 +712,7 @@ namespace PracticeCapital_ByNikitaRasputin
                     if (token.IsCancellationRequested) return;
                     if (node.ChildNodes.Count == 0) continue;
                     string text = node.ChildNodes[0].InnerText;
-                    switch(node.ChildNodes[0].InnerText)
+                    switch (node.ChildNodes[0].InnerText)
                     {
                         case "Численность персонала:":
                             if (string.IsNullOrEmpty(dataTable.Rows[i]["Численность сотрудников"].ToString())) dataTable.Rows[i]["Численность сотрудников"] = Convert.ToDouble(node.ChildNodes[1].InnerText);
@@ -733,8 +734,10 @@ namespace PracticeCapital_ByNikitaRasputin
             string lastValueCheck = "";
             int time = 0;
             string prevValue = "";
-            for(int i = 0; i < inns.Count; i++)
+            int count = 0;
+            for (int i = 0; i < inns.Count; i++)
             {
+                count++;
                 if (i > 0)
                     if (inns[i] == inns[i - 1])
                     {
@@ -754,7 +757,7 @@ namespace PracticeCapital_ByNikitaRasputin
                 string html = await browser.GetSourceAsync();
                 doc.LoadHtml(html);
                 await Task.Delay(1000);
-                if(doc.DocumentNode.SelectSingleNode("//table[@id='b-cases']").ChildNodes.Count == 0)
+                if (doc.DocumentNode.SelectSingleNode("//table[@id='b-cases']").ChildNodes.Count == 0)
                 {
                     while (doc.DocumentNode.SelectSingleNode("//table[@id='b-cases']").ChildNodes.Count == 0)
                     {
@@ -806,6 +809,11 @@ namespace PracticeCapital_ByNikitaRasputin
                     lastValueCheck = doc.DocumentNode.SelectSingleNode("//table[@id='b-cases']").ChildNodes[1].ChildNodes[0].InnerText;
                 }
                 prevValue = dataTable.Rows[i]["Кол-во судебных дел"].ToString();
+                if (count >= 3)
+                {
+                    await Task.Delay(10000);
+                    count = 0;
+                }
             }
             MessageBox.Show("Поиск завершен", "Конец операции", MessageBoxButtons.OK, MessageBoxIcon.Information);
             elementsState.Checked = true;
@@ -823,9 +831,9 @@ namespace PracticeCapital_ByNikitaRasputin
             if (!dataTable.Columns.Contains("Численность сотрудников 3 года ранее")) dataTable.Columns.Add("Численность сотрудников 3 года ранее", typeof(double));
             if (!dataTable.Columns.Contains("Массовый руководитель")) dataTable.Columns.Add("Массовый руководитель", typeof(string));
             if (!dataTable.Columns.Contains("Массовый учредитель")) dataTable.Columns.Add("Массовый учредитель", typeof(string));
-/*            if (!dataTable.Columns.Contains("Массовый адрес")) dataTable.Columns.Add("Массовый адрес", typeof(string));*/
+            /*            if (!dataTable.Columns.Contains("Массовый адрес")) dataTable.Columns.Add("Массовый адрес", typeof(string));*/
             if (!dataTable.Columns.Contains("Система налогообложения")) dataTable.Columns.Add("Система налогообложения", typeof(string));
-            if (!dataTable.Columns.Contains("Рейтинг")) dataTable.Columns.Add("Рейтинг", typeof (string));
+            if (!dataTable.Columns.Contains("Рейтинг")) dataTable.Columns.Add("Рейтинг", typeof(string));
             HtmlDocument doc = new HtmlDocument();
             for (int i = 0; i < inns.Count; i++)
             {
@@ -911,7 +919,7 @@ namespace PracticeCapital_ByNikitaRasputin
                     dataTable.Rows[i]["Численность сотрудников 3 года ранее"] = 0;
                 }
                 bool canGetMass = true;
-                while(doc.DocumentNode.SelectNodes("//div[@class='col-md-8 sub-title-content']") == null)
+                while (doc.DocumentNode.SelectNodes("//div[@class='col-md-8 sub-title-content']") == null)
                 {
                     html = await browser.GetSourceAsync();
                     doc.LoadHtml(html);
@@ -924,19 +932,19 @@ namespace PracticeCapital_ByNikitaRasputin
                     }
                     await Task.Delay(1);
                 }
-                if(canGetMass) foreach(HtmlNode node in doc.DocumentNode.SelectNodes("//div[@class='col-md-8 sub-title-content']"))
-                {
-                    if(node.InnerText == "\nМассовый учредитель" && string.IsNullOrEmpty(dataTable.Rows[i]["Массовый учредитель"].ToString()))
+                if (canGetMass) foreach (HtmlNode node in doc.DocumentNode.SelectNodes("//div[@class='col-md-8 sub-title-content']"))
                     {
-                        if (node.ParentNode.ChildNodes[1].InnerText == "Не состоит") dataTable.Rows[i]["Массовый учредитель"] = "Нет";
-                        else dataTable.Rows[i]["Массовый учредитель"] = "Есть";
+                        if (node.InnerText == "\nМассовый учредитель" && string.IsNullOrEmpty(dataTable.Rows[i]["Массовый учредитель"].ToString()))
+                        {
+                            if (node.ParentNode.ChildNodes[1].InnerText == "Не состоит") dataTable.Rows[i]["Массовый учредитель"] = "Нет";
+                            else dataTable.Rows[i]["Массовый учредитель"] = "Есть";
+                        }
+                        else if (node.InnerText == "\nМассовый руководитель" && string.IsNullOrEmpty(dataTable.Rows[i]["Массовый руководитель"].ToString()))
+                        {
+                            if (node.ParentNode.ChildNodes[1].InnerText == "Не состоит") dataTable.Rows[i]["Массовый руководитель"] = "Нет";
+                            else dataTable.Rows[i]["Массовый руководитель"] = "Есть";
+                        }
                     }
-                    else if(node.InnerText == "\nМассовый руководитель" && string.IsNullOrEmpty(dataTable.Rows[i]["Массовый руководитель"].ToString()))
-                    {
-                        if (node.ParentNode.ChildNodes[1].InnerText == "Не состоит") dataTable.Rows[i]["Массовый руководитель"] = "Нет";
-                        else dataTable.Rows[i]["Массовый руководитель"] = "Есть";
-                    }
-                }
                 string liquidationReason = "Нет";
                 if (doc.DocumentNode.SelectSingleNode("//span[@class='badge bg-badge-soft-danger c-danger']") != null)
                 {

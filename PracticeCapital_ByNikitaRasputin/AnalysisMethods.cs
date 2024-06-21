@@ -179,7 +179,8 @@ namespace PracticeCapital_ByNikitaRasputin
                     {
                         balance = Convert.ToDouble(dataGrid[balanceColumns[j], i].Value); audit = auditChecks[i, 2];
                     }
-                    if (balance / rubDivider < 400 || (balance / rubDivider >= 400 && audit != "Нет")) dataGrid[balanceColumns[j], i].Style.BackColor = Color.FromArgb(128, 255, 128);
+                    if ((balance / rubDivider < 400 && balance != 0) || (balance / rubDivider >= 400 && audit != "Нет")) dataGrid[balanceColumns[j], i].Style.BackColor = Color.FromArgb(128, 255, 128);
+                    else if (balance == 0) dataGrid[balanceColumns[j], i].Style.BackColor = Color.FromArgb(128, 128, 255);
                     else dataGrid[balanceColumns[j], i].Style.BackColor = Color.FromArgb(255, 128, 128);
                 }
             }

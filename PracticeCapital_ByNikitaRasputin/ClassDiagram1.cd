@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PracticeCapital_ByNikitaRasputin.AddRemoveColumns">
+    <Position X="4.5" Y="2.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AIEEAAAIACAAAEAAAACAAgACIAAAABAAgEBAAAAAAAE=</HashCode>
+      <FileName>AddRemoveColumns.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="form1" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PracticeCapital_ByNikitaRasputin.AnalysisMethods">
+    <Position X="1.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAABAAIAAAAAAAABgAAAAAAIAAAAAAAAAAQAAIAAAA=</HashCode>
+      <FileName>AnalysisMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PracticeCapital_ByNikitaRasputin.DataAnalysis">
+    <Position X="3.75" Y="5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>/wAUBkABAKCQAVGABgTVAQT2IgAFABIQruASDVCBAD0=</HashCode>
+      <FileName>DataAnalysis.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="form1" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PracticeCapital_ByNikitaRasputin.Form1">
+    <Position X="6.75" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EAAEAgAABKAAACgEACCAAAUSAAgAAAgACMQAAlBAAAA=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PracticeCapital_ByNikitaRasputin.GetDataFromNetDB">
+    <Position X="9.75" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAkAhQIARCEAQlkEhIWhCAAmIRkEjIQCgFgiIAkAAAA=</HashCode>
+      <FileName>GetDataFromNetDB.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="form1" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PracticeCapital_ByNikitaRasputin.GetDataFromOtherTable">
+    <Position X="6.25" Y="2.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CggoBgYFFCAgAhgAAISCQAgCIBoggAAIBAQKAIAAgBA=</HashCode>
+      <FileName>GetDataFromOtherTable.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="form1" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PracticeCapital_ByNikitaRasputin.GetTableMethods">
+    <Position X="10" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GetTableMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PracticeCapital_ByNikitaRasputin.GovDBDataGathering">
+    <Position X="11.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAABAAAAAAACAIAAAAACAAAAAAAAAAAAABAAAAAEABA=</HashCode>
+      <FileName>GovDBDataGathering.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PracticeCapital_ByNikitaRasputin.SaveExcel">
+    <Position X="2.75" Y="2.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAgAAAIBASAgCEAAAACCQAACYIhIgAAAACBAAAAAgBg=</HashCode>
+      <FileName>SaveExcel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="form1" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PracticeCapital_ByNikitaRasputin.TableAdd">
+    <Position X="8.25" Y="2.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CgAgAgIFECAAABAAAACCQAgCIAoAgAAIFAQICIAAgBA=</HashCode>
+      <FileName>TableAdd.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="form1" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
