@@ -809,7 +809,7 @@ namespace PracticeCapital_ByNikitaRasputin
                     lastValueCheck = doc.DocumentNode.SelectSingleNode("//table[@id='b-cases']").ChildNodes[1].ChildNodes[0].InnerText;
                 }
                 prevValue = dataTable.Rows[i]["Кол-во судебных дел"].ToString();
-                if (count >= 3)
+                if (count >= 2)
                 {
                     await Task.Delay(10000);
                     count = 0;

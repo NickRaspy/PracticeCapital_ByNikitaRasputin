@@ -140,7 +140,6 @@ namespace PracticeCapital_ByNikitaRasputin
                 row[0] = form1.dataTable.Rows[i][INNBox.SelectedIndex].ToString();
                 dataTable.Rows.Add(row);
             }
-            MessageBox.Show(string.Join(", ", inns));
             addButton.Enabled = false;
             searchButton.Enabled = true;
             GovDBBox.Enabled = true;
@@ -170,19 +169,8 @@ namespace PracticeCapital_ByNikitaRasputin
                         GovDBDataGathering.Terrorists(inns, dataTable, chromiumWebBrowser1, browserCheck, token);
                         break;
                     case 4:
-                        MessageBox.Show("У данного сервиса ограниченное количество запросов у неавторизованных пользователей. Авторизуйтесь на сайте и после этого нажмите кнопку Начать");
-                        try
-                        {
-                            chromiumWebBrowser1.LoadUrlAsync("https://kad.arbitr.ru");
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Не удалось подключиться к сервису. Проверьте ваше интернет соединение или обратитесь к тех. специалисту.");
-                            return;
-                        }
                         browserCheck.Checked = false;
-                        startButton.Enabled = true;
-                        chromiumWebBrowser1.Enabled = true;
+                        GovDBDataGathering.Arbitr(inns, dataTable, chromiumWebBrowser1, browserCheck, token);
                         break;
                     case 5:
                         browserCheck.Checked = false;
@@ -216,7 +204,7 @@ namespace PracticeCapital_ByNikitaRasputin
             {
                 case 4:
                     chromiumWebBrowser1.Enabled = false;
-                    GovDBDataGathering.Arbitr(inns, dataTable, chromiumWebBrowser1, browserCheck, token);
+                    
                     break;
             }
             startButton.Enabled = false;
